@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cizí jazyk po telefonu | Zavolám ti</title>
+<meta name="description" content="Třikrát týdně vám zazvoní telefon a pět minut mluvíte cizím jazykem s umělou inteligencí. Rozbor e-mailem do půl hodiny. Jeden hovor zdarma na zkoušku.">
+<meta property="og:title" content="Cizí jazyk po telefonu | Zavolám ti">
+<meta property="og:description" content="Třikrát týdně vám zazvoní telefon a pět minut mluvíte cizím jazykem s umělou inteligencí. Rozbor e-mailem do půl hodiny. Jeden hovor zdarma na zkoušku.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zavolamti.cz/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{
+  --accent:#0f6b4a; --accent-dark:#0a5238; --wash:#eaf3ee;
+  --ink:#14171a; --ink-2:#474f54; --muted:#7b8388;
+  --paper:#ffffff; --plane:#f8f7f4;
+  --line:rgba(20,23,26,.12); --line-soft:rgba(20,23,26,.07);
+  --todo:#b45309; --todo-bg:#fff8ed;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:18px;line-height:1.65;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--accent)}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+.wide{max-width:1000px;margin:0 auto;padding:0 20px}
+section{padding:56px 0}
+h1,h2,h3{line-height:1.2;letter-spacing:-.02em;margin:0 0 16px}
+h1{font-size:32px;font-weight:750}
+h2{font-size:26px;font-weight:720}
+h3{font-size:21px;font-weight:700}
+p{margin:0 0 18px}
+p:last-child{margin-bottom:0}
+.lede{font-size:19px;color:var(--ink-2)}
+.small{font-size:16px;color:var(--ink-2)}
+.tiny{font-size:15.5px;color:var(--ink-2)}
+.center{text-align:center}
+
+/* žlutý pruh „před spuštěním" — smazat před ostrým provozem */
+.checklist{background:var(--todo-bg);border-bottom:2px solid var(--todo);padding:18px 0;font-size:16px}
+.checklist h4{margin:0 0 8px;font-size:16px;color:var(--todo);letter-spacing:.02em;text-transform:uppercase}
+.checklist ul{margin:0;padding-left:22px}
+.checklist li{margin-bottom:5px}
+.checklist code{background:#fff;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:14px}
+
+/* hlavička */
+header.top{border-bottom:1px solid var(--line-soft);background:var(--paper)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;padding-bottom:14px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;white-space:nowrap;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.logo svg{width:22px;height:22px;flex:0 0 auto}
+.topnav{font-size:15.5px;white-space:nowrap}
+.topnav a{color:var(--ink-2);text-decoration:none;margin-left:18px}
+.topnav a:hover{color:var(--accent)}
+
+/* tlačítka */
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:680;font-size:19px;
+  padding:17px 28px;border-radius:12px;border:1px solid var(--accent);text-align:center;line-height:1.3;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+.btn.block{display:block;width:100%}
+.btn.ghost{background:transparent;color:var(--accent);border-color:var(--accent)}
+.btn.ghost:hover{background:var(--wash);color:var(--accent-dark)}
+.btn.quiet{background:transparent;color:var(--ink-2);border-color:transparent;text-decoration:underline;font-weight:560;font-size:16.5px;padding:10px 12px}
+.btn.quiet:hover{color:var(--ink);background:transparent}
+.btn[aria-disabled="true"]{opacity:.55;pointer-events:none}
+
+/* hero + zvonící telefon */
+.hero{padding-top:44px;padding-bottom:48px}
+.hero h1{margin-bottom:20px}
+.hero .lede{margin-bottom:28px}
+.phonebox{margin:0 0 28px}
+.ring{width:104px;height:104px}
+.ring .body{fill:none;stroke:var(--accent);stroke-width:5;stroke-linejoin:round}
+.ring .screen{fill:var(--wash)}
+.ring .arc{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;opacity:.2}
+.ring .handset{animation:rock 2.4s ease-in-out infinite}
+.ring .a1{animation:blip 2.4s ease-in-out infinite}
+.ring .a2{animation:blip 2.4s ease-in-out .16s infinite}
+@keyframes rock{0%,58%,100%{transform:rotate(0)}62%{transform:rotate(-7deg)}70%{transform:rotate(7deg)}78%{transform:rotate(-5deg)}86%{transform:rotate(0)}}
+@keyframes blip{0%,52%{opacity:.2}62%{opacity:1}86%{opacity:1}100%{opacity:.2}}
+@media (prefers-reduced-motion:reduce){.ring .handset,.ring .a1,.ring .a2{animation:none}.ring .arc{opacity:.5}}
+.cta{line-height:0;margin-bottom:14px}
+.underbtn{margin-top:0}
+
+/* prázdná místa pro obrázky / video / formuláře */
+.slot{border:2px dashed var(--todo);background:var(--todo-bg);border-radius:var(--radius);display:flex;align-items:center;
+  justify-content:center;text-align:center;padding:24px 20px;color:var(--todo);font-size:15px;line-height:1.5}
+.slot b{display:block;font-size:16px;margin-bottom:4px}
+.slot .dims{display:block;margin-top:6px;font-size:13px;opacity:.8}
+.slot.video{aspect-ratio:16/9}
+.slot.shot{aspect-ratio:9/16}
+.slot.shot.wide-shot{aspect-ratio:4/3}
+.slot.form{aspect-ratio:auto;min-height:420px}
+.todo-inline{background:var(--todo-bg);color:var(--todo);border:1px dashed var(--todo);border-radius:4px;padding:0 6px;font-weight:600}
+
+/* šedý blok */
+.plane{background:var(--plane);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.block{margin-bottom:44px}
+.block:last-child{margin-bottom:0}
+.num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:16px;font-weight:700;margin-bottom:14px}
+.pull{border-left:3px solid var(--accent);padding:2px 0 2px 18px;margin:22px 0;font-size:19px;font-weight:600;color:var(--ink)}
+.callout{background:var(--wash);border-radius:var(--radius);padding:20px 22px;margin-top:32px;font-size:18px;font-weight:620;color:var(--accent-dark)}
+
+/* kroky */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{position:relative;padding-left:52px;margin-bottom:28px;counter-increment:s}
+.steps li:last-child{margin-bottom:0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;
+  background:var(--wash);color:var(--accent-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
+.steps h3{margin-bottom:6px}
+.steps p{font-size:17px;color:var(--ink-2);margin:0}
+
+/* jazyky — řádek vlajek */
+.langs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 6px}
+.lang{display:inline-flex;align-items:center;gap:8px;background:var(--plane);border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px 7px 10px;font-size:15.5px;font-weight:620;color:var(--ink)}
+.lang .fl{font-size:18px;line-height:1}
+
+/* galerie */
+.shots{display:grid;grid-template-columns:1fr;gap:16px;margin-top:28px}
+
+/* zelený blok */
+.zkouska{background:var(--accent);color:#fff}
+.zkouska h2,.zkouska h3{color:#fff}
+.zkouska .lede{color:rgba(255,255,255,.9)}
+.zkouska .btn{background:#fff;color:var(--accent-dark);border-color:#fff}
+.zkouska .btn:hover{background:#f0f0ec;color:var(--accent-dark)}
+.zkouska .tiny{color:rgba(255,255,255,.82)}
+.zkouska a{color:#fff}
+.zkouska .slot{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.10);color:#fff}
+.kroky4{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:14px;counter-reset:z}
+.kroky4 li{position:relative;padding-left:38px;font-size:17px;line-height:1.5}
+.kroky4 li b{display:block}
+.kroky4 li::before{content:counter(z);counter-increment:z;position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,.22);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+
+/* ceník */
+.tiers{display:grid;grid-template-columns:1fr;gap:16px}
+.pricecard{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:28px 24px;position:relative}
+.pricecard.reco{border:2px solid var(--accent);box-shadow:0 10px 30px rgba(15,107,74,.10)}
+.amount{font-size:44px;font-weight:760;letter-spacing:-.03em;line-height:1;margin:0}
+.amount .obd{display:block;font-size:17px;font-weight:600;color:var(--ink-2);letter-spacing:0;margin-top:8px}
+.tierline{font-size:16.5px;color:var(--ink-2);margin:8px 0 0;font-weight:600}
+.percall{margin:10px 0 0;font-size:15.5px;color:var(--accent-dark);font-weight:650;background:var(--wash);display:inline-block;padding:4px 10px;border-radius:999px}
+.seats{display:inline-block;background:var(--accent);color:#fff;font-size:14px;font-weight:680;padding:5px 12px;border-radius:999px;margin-bottom:16px}
+.seats.soft{background:var(--wash);color:var(--accent-dark)}
+.includes{list-style:none;margin:22px 0;padding:0}
+.includes li{position:relative;padding-left:30px;margin-bottom:11px;font-size:16.5px}
+.includes li::before{content:"";position:absolute;left:4px;top:9px;width:10px;height:6px;border-left:2.5px solid var(--accent);border-bottom:2.5px solid var(--accent);transform:rotate(-45deg)}
+.includes li.no{color:var(--muted)}
+.includes li.no::before{border:0;width:12px;height:2px;background:var(--muted);top:12px;left:3px;transform:none}
+.kapacita{background:var(--wash);border-radius:var(--radius);padding:18px 20px;margin-bottom:22px;font-size:17px;color:var(--accent-dark);font-weight:600}
+.savings{font-size:15px;color:var(--ink-2);margin:6px 0 0}
+
+/* přepínač měsíčně / čtvrtletně */
+.toggle{display:inline-flex;background:var(--plane);border:1px solid var(--line);border-radius:999px;padding:4px;margin:0 0 26px}
+.toggle button{font-family:inherit;font-size:16px;font-weight:640;border:0;background:transparent;color:var(--ink-2);padding:9px 18px;border-radius:999px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.toggle .badge{font-size:12.5px;background:var(--wash);color:var(--accent-dark);padding:2px 8px;border-radius:999px;margin-left:6px;font-weight:700}
+
+/* dotazník — dlaždice */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 8px}
+.tile{position:relative}
+.tile input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.tile label,.tile .lbl{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:16.5px;font-weight:620;background:var(--paper);cursor:pointer;line-height:1.35}
+.tile input:checked + label,.tile input:checked + .lbl{border-color:var(--accent);background:var(--wash);color:var(--accent-dark)}
+.tile input:focus-visible + label{outline:3px solid rgba(15,107,74,.35);outline-offset:2px}
+.tiles.one{grid-template-columns:1fr}
+.reakce{background:var(--wash);border-radius:var(--radius);padding:16px 20px;font-size:17px;color:var(--accent-dark);margin-top:14px;min-height:56px}
+.reakce.warn{background:var(--todo-bg);color:var(--todo)}
+.qlabel{font-weight:700;font-size:17px;margin:26px 0 12px;display:block}
+.qlabel:first-child{margin-top:0}
+
+/* kroky funnelu (pilulky) */
+.stepline{display:flex;gap:10px;align-items:center;margin-bottom:26px;flex-wrap:wrap}
+.pill{font-size:15px;font-weight:650;padding:6px 14px;border-radius:999px;background:var(--wash);color:var(--accent-dark)}
+.pill.done{background:var(--accent);color:#fff}
+.pill.done::before{content:"✓ "}
+.pill.now{outline:2px solid var(--accent)}
+
+/* velké číslo k uložení */
+.savenum{background:var(--plane);border:1px solid var(--line);border-radius:18px;padding:26px 22px;text-align:center;margin:26px 0}
+.savenum .n{font-size:34px;font-weight:760;letter-spacing:.02em;color:var(--ink);margin:6px 0 10px;font-variant-numeric:tabular-nums}
+.savenum .l{font-size:15.5px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em;font-weight:650}
+.savenum .btn{margin-top:8px}
+
+/* ukázka rozboru (e-mail) */
+.mail{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:0;overflow:hidden;margin-top:24px}
+.mail .hd{background:var(--plane);border-bottom:1px solid var(--line-soft);padding:14px 20px;font-size:15px;color:var(--ink-2)}
+.mail .hd b{color:var(--ink)}
+.mail .bd{padding:22px 22px 26px;font-size:16.5px}
+.mail .bd h4{margin:20px 0 8px;font-size:17px;letter-spacing:-.01em}
+.mail .bd h4:first-child{margin-top:0}
+.mail .bd ul{margin:0 0 6px;padding-left:22px}
+.mail .bd li{margin-bottom:6px}
+.mail .bd code{background:var(--plane);border:1px solid var(--line-soft);border-radius:4px;padding:1px 6px;font-size:14.5px}
+.fix{color:#9a1b1b;text-decoration:line-through;text-decoration-color:rgba(154,27,27,.6)}
+.ok{color:var(--accent-dark);font-weight:650}
+
+/* vložené prvky z konfig.js */
+.tally-embed{margin:0}
+.tally-embed iframe{display:block;width:100%;border:0}
+.video-embed{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.shot-img{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--plane)}
+.shot-img img{width:100%;height:auto;display:block}
+html.nahled .jen-ostre{display:none}
+html.ostre .jen-nahled{display:none}
+
+/* faq */
+.qa{border-top:1px solid var(--line-soft);padding:22px 0}
+.qa:last-of-type{border-bottom:1px solid var(--line-soft)}
+.qa h3{font-size:18.5px;margin-bottom:8px}
+.qa p{font-size:17px;color:var(--ink-2);margin:0}
+
+/* patička */
+footer{background:var(--ink);color:#c9cfd2;padding:40px 0;font-size:16px}
+footer a{color:#fff}
+footer p{margin:0 0 10px}
+
+@media (max-width:479px){
+  .topnav{font-size:13.5px}
+  .topnav a{margin-left:10px}
+  .logo{font-size:15.5px}
+}
+@media (min-width:760px){
+  body{font-size:19px}
+  section{padding:80px 0}
+  h1{font-size:46px}
+  h2{font-size:32px}
+  h3{font-size:22px}
+  .lede{font-size:21px}
+  .hero{padding-top:64px}
+  .ring{width:124px;height:124px}
+  .btn{font-size:20px;padding:18px 34px}
+  .btn.block{display:inline-block;width:auto}
+  .amount{font-size:54px}
+  .shots{grid-template-columns:1fr 1fr;gap:20px}
+  .shots .span2{grid-column:1 / -1}
+  .tiers{grid-template-columns:1fr 1fr 1fr;gap:18px;align-items:start}
+  .tiles{grid-template-columns:repeat(3,1fr)}
+  .tiles.lvl{grid-template-columns:1fr}
+  .savenum .n{font-size:44px}
+}
+
+
+</style>
+</head>
+<body data-udalost="Lead">
+<!-- PŘED SPUŠTĚNÍM SMAZAT: celý tento žlutý blok -->
+<div class="checklist">
+  <div class="wrap">
+    <h4>Před spuštěním doplnit</h4>
+    <ul>
+      <li>Formulář Tally musí mít <b>skryté pole <code>zdroj</code></b> (Tally → pole Hidden fields), jinak se nepozná, kdo přišel odsud</li>
+      <li>Platební odkazy pro tenhle kanál se vyplňují do <code>konfig.js</code> → <code>STRIPE_KANALY.reklama</code>. Prázdné = použijí se standardní</li>
+      <li><b>Nakonec smazat tenhle žlutý pruh</b> (blok <code>class="checklist"</code>)</li>
+    </ul>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#0f6b4a" stroke-width="2"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#0f6b4a" stroke-width="2" stroke-linecap="round"/></svg> Zavolám ti</a>
+    <nav class="topnav"><a href="index.html#jak">Jak to funguje</a><a href="nabidka.html">Ceník</a></nav>
+  </div>
+</header>
+
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="phonebox"><svg class="ring" viewBox="0 0 120 120" role="img" aria-label="Zvonící telefon">
+        <g class="handset" style="transform-origin:60px 66px">
+          <rect class="body" x="44" y="30" width="32" height="56" rx="6"/>
+          <rect class="screen" x="49" y="36" width="22" height="38" rx="2"/>
+          <line x1="55" y1="80" x2="65" y2="80" stroke="#0f6b4a" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <path class="arc a1" d="M84 46 A 18 18 0 0 1 84 70"/>
+        <path class="arc a2" d="M92 38 A 30 30 0 0 1 92 78"/>
+        <path class="arc a1" d="M36 46 A 18 18 0 0 0 36 70"/>
+        <path class="arc a2" d="M28 38 A 30 30 0 0 0 28 78"/>
+      </svg></div>
+    
+    <h1>Nemusíte nic začít. Telefon zazvoní sám.</h1>
+    <p class="lede">Třikrát týdně, v čase, který si vyberete. Zvednete a pět minut mluvíte cizím jazykem — s umělou inteligencí, takže se před ní nemusíte stydět. Do půl hodiny vám přijde e-mailem rozbor.</p>
+    <div class="langs"><span class="lang"><span class="fl">🇺🇸</span>Angličtina</span><span class="lang"><span class="fl">🇩🇪</span>Němčina</span><span class="lang"><span class="fl">🇪🇸</span>Španělština</span><span class="lang"><span class="fl">🇮🇹</span>Italština</span><span class="lang"><span class="fl">🇫🇷</span>Francouzština</span></div>
+    <div class="cta" style="margin-top:26px"><a class="btn block" href="#zkouska">Zkusit jeden hovor zdarma</a></div>
+    <p class="tiny underbtn">Jeden hovor na zkoušku. Zdarma, bez karty, bez závazku.</p>
+  </div>
+</section>
+
+<!-- ===================== PROČ ===================== -->
+<section class="plane">
+  <div class="wrap">
+    <h2>Proč zrovna telefon</h2>
+    <p>Lektor, aplikace, konverzační klub — všechno funguje, když to spustíte vy. A přesně na tom prvním kroku to skoro každému skončí. Tady žádný první krok není: zvednout telefon je reflex, ne rozhodnutí.</p>
+    <p>Na druhé straně je umělá inteligence s hlasem rodilého mluvčího a s trpělivostí, jakou
+      žádný člověk nemá. Když nevíte, řeknete to česky a jede se dál. Nikdo vás nehodnotí,
+      nikdo se nesměje.</p>
+    <p class="pull">Jediná věc, kterou byste museli udělat, je aktivně přestat zvedat.</p>
+    <p class="small">Pro koho to není: pro úplné začátečníky, kteří nerozumí skoro vůbec — pět minut
+      hovoru je jen odradí. A pro lidi, kterým vyhovuje lektor a chodí k němu. Těm tohle nic
+      nenahradí a nic jim nechybí.</p>
+  </div>
+</section>
+
+<!-- ===================== JAK TO CHODÍ ===================== -->
+<section>
+  <div class="wrap">
+    <h2>Jak to chodí</h2>
+    <ol class="kroky4">
+      <li><b>Necháte číslo, e-mail a jazyk</b> ve formuláři níž. Nic víc, žádná registrace.</li>
+      <li><b>Uložíte si číslo +420 910 927 989</b> do telefonu, ať vám hovor nepřijde jako neznámý.</li>
+      <li><b>Do dvou pracovních dnů zazvoní telefon.</b> Zvednete a pět minut mluvíte.</li>
+      <li><b>Do půl hodiny přijde rozbor e-mailem</b> — co bylo dobře, co špatně a jak se to říká
+        správně. A tím to končí; nikdo vám nevolá znovu, dokud si to sami neřeknete.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== NABÍDKA ===================== -->
+<section class="plane">
+  <div class="wrap">
+    <h2>Kolik to stojí</h2>
+    <div class="callout">Zkušební hovor zdarma, bez karty a bez registrace. Kdo bude chtít pokračovat, platí od 497 Kč měsíčně podle toho, jak často má telefon zvonit. Bez závazku, zrušíte kdykoli.</div>
+    
+    <p style="margin-top:22px"><a class="btn ghost" href="nabidka.html?zdroj=reklama">Podívat se na celý ceník</a></p>
+  </div>
+</section>
+
+<!-- ===================== ZKOUŠKA ===================== -->
+<section class="zkouska" id="zkouska">
+  <div class="wrap">
+    <h2>Zkuste si jeden hovor zdarma</h2>
+    <p class="lede">Popsat se to nedá. Zvednete telefon, pět minut mluvíte a pak vám přijde
+      rozbor — a teprve pak víte, jestli je to pro vás.</p>
+    <div style="margin-top:30px">
+      <div class="slot form" id="zkouska-slot" data-zdroj="reklama" style="min-height:340px">
+        <div>
+          <b>Sem přijde formulář</b>
+          Vložený formulář z Tally se skrytým polem <code>zdroj=reklama</code>.
+          <span class="dims">Nahradit značkou &lt;iframe&gt; z Tally (návod, krok 7).</span>
+        </div>
+      </div>
+    </div>
+    <p class="tiny" style="margin-top:18px">Vaše číslo použiju jen na tenhle jeden hovor. Hovor se
+      přepisuje, aby z něj mohl vzniknout rozbor — podrobnosti v
+      <a href="osobni-udaje.html" style="text-decoration:underline">dokumentu o zpracování osobních údajů</a>.</p>
+  </div>
+</section>
+
+<!-- ===================== OTÁZKY ===================== -->
+<section>
+  <div class="wrap">
+    <h2>Časté otázky</h2>
+    <div class="qa"><h3>Je zkušební hovor opravdu zdarma?</h3>
+      <p>Ano. Jeden hovor, jeden rozbor, žádná karta, žádné přihlašování. Když nebudete chtít
+        pokračovat, neděláte nic a už vám nikdo nezavolá.</p></div>
+    <div class="qa"><h3>Je to náhrada lektora?</h3>
+      <p>Ne. Lektor vás učí. Tohle vás nutí mluvit — třikrát týdně, i když se vám nechce.
+        Klidně můžete mít obojí.</p></div>
+    <div class="qa"><h3>S kým budu mluvit v reálu, když teď mluvím se strojem?</h3>
+      <p>S lidmi, o to jde. Jenže mezi „umím slovíčka" a „otevřu pusu na člověka" je propast
+        a tu nepřejdete tím, že se budete dívat na druhý břeh. Tohle je rozcvička, ne cíl.</p></div>
+    <div class="qa"><h3>Co když nebudu rozumět?</h3>
+      <p>Řeknete to a partner to zopakuje jednodušeji a pomaleji. Začátečníkům mluví krátkými
+        větami a nikam nespěchá. Během hovoru vás neopravuje; na to je rozbor potom.</p></div>
+    <div class="qa"><h3>Co když zrovna nemůžu zvednout?</h3>
+      <p>Nevadí, zavolá znovu v dalším termínu. Za nezvednutý hovor se nic neplatí navíc.</p></div>
+    <div class="qa"><h3>Nahrávají se hovory?</h3>
+      <p>Hovor se přepíše do textu, aby z něj mohl vzniknout váš rozbor. Zvuk se neukládá.
+        Podrobnosti v <a href="osobni-udaje.html">dokumentu o zpracování osobních údajů</a>.</p></div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <p><b>Petr Melena</b> — OSVČ, neplátce DPH</p>
+    <p>IČO: 87235714<br>
+       Sídlo: Pohled 30, 582 21 Pohled<br>
+       E-mail: <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a></p>
+    <p><a href="podminky.html">Obchodní podmínky</a> &nbsp;·&nbsp; <a href="osobni-udaje.html">Zpracování osobních údajů</a></p>
+    <p class="tiny" style="color:#8f979b;margin-top:18px">Hovory vede umělá inteligence. Přepisují se, aby z nich mohl vzniknout rozbor.</p>
+  </div>
+</footer>
+
+<script src="konfig.js"></script>
+<script>
+(function(){
+  var K = window.KONFIG || {};
+  var ostre = (K.OSTRE_DOMENY || []).indexOf(location.hostname) > -1;
+  document.documentElement.classList.add(ostre ? "ostre" : "nahled");
+
+  // 1) žluté pracovní pruhy jen v náhledu
+  if (ostre) document.querySelectorAll(".checklist").forEach(function(e){ e.remove(); });
+
+  // 2) formulář Tally do #zkouska-slot
+  var slot = document.getElementById("zkouska-slot");
+  if (slot) {
+    if (K.TALLY_FORM_ID) {
+      slot.className = "tally-embed";
+      slot.style.minHeight = "0";
+      // zdroj kanalu (data-zdroj na slotu) jde do skryteho pole formulare, aby bylo videt,
+      // odkud clovek prisel - podle toho se pak pocita provize partnerovi
+      var zdroj = slot.dataset.zdroj ? "&zdroj=" + encodeURIComponent(slot.dataset.zdroj) : "";
+      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + K.TALLY_FORM_ID +
+        '?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="520" ' +
+        'frameborder="0" marginheight="0" marginwidth="0" title="Zkušební hovor zdarma"></iframe>';
+      var d=document,w="https://tally.so/widgets/embed.js",v=function(){ if (typeof Tally!=="undefined") Tally.loadEmbeds(); else d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc;}); };
+      if (typeof Tally!=="undefined") v(); else if (!d.querySelector('script[src="'+w+'"]')) { var sc=d.createElement("script"); sc.src=w; sc.onload=v; sc.onerror=v; d.body.appendChild(sc); }
+    } else if (ostre) {
+      slot.innerHTML = '<div><b>Formulář se připravuje.</b> Napište mi zatím na <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a> — jméno, číslo a jazyk.</div>';
+      slot.style.borderColor = "rgba(255,255,255,.55)";
+    }
+  }
+
+  // 3) video do #video-slot (nebo skrýt celou sekci)
+  var vid = document.getElementById("video-slot");
+  if (vid) {
+    if (K.VIDEO_YOUTUBE_ID) {
+      vid.className = "video-embed";
+      vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
+        'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+    } else if (ostre) {
+      var sec = vid.closest("section"); if (sec) sec.hidden = true;
+    }
+  }
+
+  // 4) screenshoty (nebo skrýt sekci)
+  var shots = document.querySelectorAll(".shots .slot.shot");
+  if (shots && shots.length) {
+    var soubory = K.SCREENSHOTY || [];
+    if (soubory.length) {
+      shots.forEach(function(sl, i){
+        if (!soubory[i]) { sl.hidden = true; return; }
+        var popis = (sl.querySelector("b") || {}).textContent || "";
+        sl.className = "shot-img" + (sl.classList.contains("span2") ? " span2" : "");
+        sl.innerHTML = '<img src="obrazky/' + soubory[i] + '" alt="' + popis.replace(/"/g,"") + '" loading="lazy">';
+      });
+    } else if (ostre) {
+      var sec2 = shots[0].closest("section"); if (sec2) sec2.hidden = true;
+    }
+  }
+
+  // 5) Stripe odkazy — konfig má přednost před hodnotami zapečenými ve stránce
+  if (K.STRIPE && window.DATA_STRIPE_HOOK) window.DATA_STRIPE_HOOK(K.STRIPE);
+
+  // 6) Meta pixel (jen na ostré doméně a jen když je ID)
+  if (ostre && K.META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', K.META_PIXEL_ID); fbq('track', 'PageView');
+    var udalost = document.body.getAttribute("data-udalost");
+    if (udalost) fbq('track', udalost);
+  }
+})();
+</script>
+</body>
+</html>

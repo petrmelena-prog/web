@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ceník a nabídka | Zavolám ti</title>
+<meta name="description" content="Telefon zvoní dvakrát, třikrát nebo pětkrát týdně a vy mluvíte cizím jazykem. Rozbor po každém hovoru. Od 497 Kč měsíčně, bez závazku.">
+<meta property="og:title" content="Ceník a nabídka | Zavolám ti">
+<meta property="og:description" content="Telefon zvoní dvakrát, třikrát nebo pětkrát týdně a vy mluvíte cizím jazykem. Rozbor po každém hovoru. Od 497 Kč měsíčně, bez závazku.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zavolamti.cz/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{
+  --accent:#0f6b4a; --accent-dark:#0a5238; --wash:#eaf3ee;
+  --ink:#14171a; --ink-2:#474f54; --muted:#7b8388;
+  --paper:#ffffff; --plane:#f8f7f4;
+  --line:rgba(20,23,26,.12); --line-soft:rgba(20,23,26,.07);
+  --todo:#b45309; --todo-bg:#fff8ed;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:18px;line-height:1.65;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--accent)}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+.wide{max-width:1000px;margin:0 auto;padding:0 20px}
+section{padding:56px 0}
+h1,h2,h3{line-height:1.2;letter-spacing:-.02em;margin:0 0 16px}
+h1{font-size:32px;font-weight:750}
+h2{font-size:26px;font-weight:720}
+h3{font-size:21px;font-weight:700}
+p{margin:0 0 18px}
+p:last-child{margin-bottom:0}
+.lede{font-size:19px;color:var(--ink-2)}
+.small{font-size:16px;color:var(--ink-2)}
+.tiny{font-size:15.5px;color:var(--ink-2)}
+.center{text-align:center}
+
+/* žlutý pruh „před spuštěním" — smazat před ostrým provozem */
+.checklist{background:var(--todo-bg);border-bottom:2px solid var(--todo);padding:18px 0;font-size:16px}
+.checklist h4{margin:0 0 8px;font-size:16px;color:var(--todo);letter-spacing:.02em;text-transform:uppercase}
+.checklist ul{margin:0;padding-left:22px}
+.checklist li{margin-bottom:5px}
+.checklist code{background:#fff;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:14px}
+
+/* hlavička */
+header.top{border-bottom:1px solid var(--line-soft);background:var(--paper)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;padding-bottom:14px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;white-space:nowrap;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.logo svg{width:22px;height:22px;flex:0 0 auto}
+.topnav{font-size:15.5px;white-space:nowrap}
+.topnav a{color:var(--ink-2);text-decoration:none;margin-left:18px}
+.topnav a:hover{color:var(--accent)}
+
+/* tlačítka */
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:680;font-size:19px;
+  padding:17px 28px;border-radius:12px;border:1px solid var(--accent);text-align:center;line-height:1.3;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+.btn.block{display:block;width:100%}
+.btn.ghost{background:transparent;color:var(--accent);border-color:var(--accent)}
+.btn.ghost:hover{background:var(--wash);color:var(--accent-dark)}
+.btn.quiet{background:transparent;color:var(--ink-2);border-color:transparent;text-decoration:underline;font-weight:560;font-size:16.5px;padding:10px 12px}
+.btn.quiet:hover{color:var(--ink);background:transparent}
+.btn[aria-disabled="true"]{opacity:.55;pointer-events:none}
+
+/* hero + zvonící telefon */
+.hero{padding-top:44px;padding-bottom:48px}
+.hero h1{margin-bottom:20px}
+.hero .lede{margin-bottom:28px}
+.phonebox{margin:0 0 28px}
+.ring{width:104px;height:104px}
+.ring .body{fill:none;stroke:var(--accent);stroke-width:5;stroke-linejoin:round}
+.ring .screen{fill:var(--wash)}
+.ring .arc{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;opacity:.2}
+.ring .handset{animation:rock 2.4s ease-in-out infinite}
+.ring .a1{animation:blip 2.4s ease-in-out infinite}
+.ring .a2{animation:blip 2.4s ease-in-out .16s infinite}
+@keyframes rock{0%,58%,100%{transform:rotate(0)}62%{transform:rotate(-7deg)}70%{transform:rotate(7deg)}78%{transform:rotate(-5deg)}86%{transform:rotate(0)}}
+@keyframes blip{0%,52%{opacity:.2}62%{opacity:1}86%{opacity:1}100%{opacity:.2}}
+@media (prefers-reduced-motion:reduce){.ring .handset,.ring .a1,.ring .a2{animation:none}.ring .arc{opacity:.5}}
+.cta{line-height:0;margin-bottom:14px}
+.underbtn{margin-top:0}
+
+/* prázdná místa pro obrázky / video / formuláře */
+.slot{border:2px dashed var(--todo);background:var(--todo-bg);border-radius:var(--radius);display:flex;align-items:center;
+  justify-content:center;text-align:center;padding:24px 20px;color:var(--todo);font-size:15px;line-height:1.5}
+.slot b{display:block;font-size:16px;margin-bottom:4px}
+.slot .dims{display:block;margin-top:6px;font-size:13px;opacity:.8}
+.slot.video{aspect-ratio:16/9}
+.slot.shot{aspect-ratio:9/16}
+.slot.shot.wide-shot{aspect-ratio:4/3}
+.slot.form{aspect-ratio:auto;min-height:420px}
+.todo-inline{background:var(--todo-bg);color:var(--todo);border:1px dashed var(--todo);border-radius:4px;padding:0 6px;font-weight:600}
+
+/* šedý blok */
+.plane{background:var(--plane);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.block{margin-bottom:44px}
+.block:last-child{margin-bottom:0}
+.num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:16px;font-weight:700;margin-bottom:14px}
+.pull{border-left:3px solid var(--accent);padding:2px 0 2px 18px;margin:22px 0;font-size:19px;font-weight:600;color:var(--ink)}
+.callout{background:var(--wash);border-radius:var(--radius);padding:20px 22px;margin-top:32px;font-size:18px;font-weight:620;color:var(--accent-dark)}
+
+/* kroky */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{position:relative;padding-left:52px;margin-bottom:28px;counter-increment:s}
+.steps li:last-child{margin-bottom:0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;
+  background:var(--wash);color:var(--accent-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
+.steps h3{margin-bottom:6px}
+.steps p{font-size:17px;color:var(--ink-2);margin:0}
+
+/* jazyky — řádek vlajek */
+.langs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 6px}
+.lang{display:inline-flex;align-items:center;gap:8px;background:var(--plane);border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px 7px 10px;font-size:15.5px;font-weight:620;color:var(--ink)}
+.lang .fl{font-size:18px;line-height:1}
+
+/* galerie */
+.shots{display:grid;grid-template-columns:1fr;gap:16px;margin-top:28px}
+
+/* zelený blok */
+.zkouska{background:var(--accent);color:#fff}
+.zkouska h2,.zkouska h3{color:#fff}
+.zkouska .lede{color:rgba(255,255,255,.9)}
+.zkouska .btn{background:#fff;color:var(--accent-dark);border-color:#fff}
+.zkouska .btn:hover{background:#f0f0ec;color:var(--accent-dark)}
+.zkouska .tiny{color:rgba(255,255,255,.82)}
+.zkouska a{color:#fff}
+.zkouska .slot{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.10);color:#fff}
+.kroky4{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:14px;counter-reset:z}
+.kroky4 li{position:relative;padding-left:38px;font-size:17px;line-height:1.5}
+.kroky4 li b{display:block}
+.kroky4 li::before{content:counter(z);counter-increment:z;position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,.22);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+
+/* ceník */
+.tiers{display:grid;grid-template-columns:1fr;gap:16px}
+.pricecard{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:28px 24px;position:relative}
+.pricecard.reco{border:2px solid var(--accent);box-shadow:0 10px 30px rgba(15,107,74,.10)}
+.amount{font-size:44px;font-weight:760;letter-spacing:-.03em;line-height:1;margin:0}
+.amount .obd{display:block;font-size:17px;font-weight:600;color:var(--ink-2);letter-spacing:0;margin-top:8px}
+.tierline{font-size:16.5px;color:var(--ink-2);margin:8px 0 0;font-weight:600}
+.percall{margin:10px 0 0;font-size:15.5px;color:var(--accent-dark);font-weight:650;background:var(--wash);display:inline-block;padding:4px 10px;border-radius:999px}
+.seats{display:inline-block;background:var(--accent);color:#fff;font-size:14px;font-weight:680;padding:5px 12px;border-radius:999px;margin-bottom:16px}
+.seats.soft{background:var(--wash);color:var(--accent-dark)}
+.includes{list-style:none;margin:22px 0;padding:0}
+.includes li{position:relative;padding-left:30px;margin-bottom:11px;font-size:16.5px}
+.includes li::before{content:"";position:absolute;left:4px;top:9px;width:10px;height:6px;border-left:2.5px solid var(--accent);border-bottom:2.5px solid var(--accent);transform:rotate(-45deg)}
+.includes li.no{color:var(--muted)}
+.includes li.no::before{border:0;width:12px;height:2px;background:var(--muted);top:12px;left:3px;transform:none}
+.kapacita{background:var(--wash);border-radius:var(--radius);padding:18px 20px;margin-bottom:22px;font-size:17px;color:var(--accent-dark);font-weight:600}
+.savings{font-size:15px;color:var(--ink-2);margin:6px 0 0}
+
+/* přepínač měsíčně / čtvrtletně */
+.toggle{display:inline-flex;background:var(--plane);border:1px solid var(--line);border-radius:999px;padding:4px;margin:0 0 26px}
+.toggle button{font-family:inherit;font-size:16px;font-weight:640;border:0;background:transparent;color:var(--ink-2);padding:9px 18px;border-radius:999px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.toggle .badge{font-size:12.5px;background:var(--wash);color:var(--accent-dark);padding:2px 8px;border-radius:999px;margin-left:6px;font-weight:700}
+
+/* dotazník — dlaždice */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 8px}
+.tile{position:relative}
+.tile input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.tile label,.tile .lbl{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:16.5px;font-weight:620;background:var(--paper);cursor:pointer;line-height:1.35}
+.tile input:checked + label,.tile input:checked + .lbl{border-color:var(--accent);background:var(--wash);color:var(--accent-dark)}
+.tile input:focus-visible + label{outline:3px solid rgba(15,107,74,.35);outline-offset:2px}
+.tiles.one{grid-template-columns:1fr}
+.reakce{background:var(--wash);border-radius:var(--radius);padding:16px 20px;font-size:17px;color:var(--accent-dark);margin-top:14px;min-height:56px}
+.reakce.warn{background:var(--todo-bg);color:var(--todo)}
+.qlabel{font-weight:700;font-size:17px;margin:26px 0 12px;display:block}
+.qlabel:first-child{margin-top:0}
+
+/* kroky funnelu (pilulky) */
+.stepline{display:flex;gap:10px;align-items:center;margin-bottom:26px;flex-wrap:wrap}
+.pill{font-size:15px;font-weight:650;padding:6px 14px;border-radius:999px;background:var(--wash);color:var(--accent-dark)}
+.pill.done{background:var(--accent);color:#fff}
+.pill.done::before{content:"✓ "}
+.pill.now{outline:2px solid var(--accent)}
+
+/* velké číslo k uložení */
+.savenum{background:var(--plane);border:1px solid var(--line);border-radius:18px;padding:26px 22px;text-align:center;margin:26px 0}
+.savenum .n{font-size:34px;font-weight:760;letter-spacing:.02em;color:var(--ink);margin:6px 0 10px;font-variant-numeric:tabular-nums}
+.savenum .l{font-size:15.5px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em;font-weight:650}
+.savenum .btn{margin-top:8px}
+
+/* ukázka rozboru (e-mail) */
+.mail{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:0;overflow:hidden;margin-top:24px}
+.mail .hd{background:var(--plane);border-bottom:1px solid var(--line-soft);padding:14px 20px;font-size:15px;color:var(--ink-2)}
+.mail .hd b{color:var(--ink)}
+.mail .bd{padding:22px 22px 26px;font-size:16.5px}
+.mail .bd h4{margin:20px 0 8px;font-size:17px;letter-spacing:-.01em}
+.mail .bd h4:first-child{margin-top:0}
+.mail .bd ul{margin:0 0 6px;padding-left:22px}
+.mail .bd li{margin-bottom:6px}
+.mail .bd code{background:var(--plane);border:1px solid var(--line-soft);border-radius:4px;padding:1px 6px;font-size:14.5px}
+.fix{color:#9a1b1b;text-decoration:line-through;text-decoration-color:rgba(154,27,27,.6)}
+.ok{color:var(--accent-dark);font-weight:650}
+
+/* vložené prvky z konfig.js */
+.tally-embed{margin:0}
+.tally-embed iframe{display:block;width:100%;border:0}
+.video-embed{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.shot-img{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--plane)}
+.shot-img img{width:100%;height:auto;display:block}
+html.nahled .jen-ostre{display:none}
+html.ostre .jen-nahled{display:none}
+
+/* faq */
+.qa{border-top:1px solid var(--line-soft);padding:22px 0}
+.qa:last-of-type{border-bottom:1px solid var(--line-soft)}
+.qa h3{font-size:18.5px;margin-bottom:8px}
+.qa p{font-size:17px;color:var(--ink-2);margin:0}
+
+/* patička */
+footer{background:var(--ink);color:#c9cfd2;padding:40px 0;font-size:16px}
+footer a{color:#fff}
+footer p{margin:0 0 10px}
+
+@media (max-width:479px){
+  .topnav{font-size:13.5px}
+  .topnav a{margin-left:10px}
+  .logo{font-size:15.5px}
+}
+@media (min-width:760px){
+  body{font-size:19px}
+  section{padding:80px 0}
+  h1{font-size:46px}
+  h2{font-size:32px}
+  h3{font-size:22px}
+  .lede{font-size:21px}
+  .hero{padding-top:64px}
+  .ring{width:124px;height:124px}
+  .btn{font-size:20px;padding:18px 34px}
+  .btn.block{display:inline-block;width:auto}
+  .amount{font-size:54px}
+  .shots{grid-template-columns:1fr 1fr;gap:20px}
+  .shots .span2{grid-column:1 / -1}
+  .tiers{grid-template-columns:1fr 1fr 1fr;gap:18px;align-items:start}
+  .tiles{grid-template-columns:repeat(3,1fr)}
+  .tiles.lvl{grid-template-columns:1fr}
+  .savenum .n{font-size:44px}
+}
+
+
+</style>
+</head>
+<body>
+<!-- PŘED SPUŠTĚNÍM SMAZAT: celý tento žlutý blok -->
+<div class="checklist">
+  <div class="wrap">
+    <h4>Před spuštěním doplnit</h4>
+    <ul>
+      <li>Video — do <code>konfig.js</code> vyplnit <code>VIDEO_YOUTUBE_ID</code>. Bez něj se sekce na ostrém webu neukáže</li>
+      <li>Platební odkazy — do <code>konfig.js</code> vyplnit sedm adres ve <code>STRIPE</code> (návod, krok 8). Nevyplněné tlačítko řekne, že odkaz chybí</li>
+      <li>Ukázkový rozbor — nahradit vlastním skutečným rozborem (jen změnit jméno)</li>
+      <li>Zkontrolovat ceny a názvy partnerů pro španělštinu, italštinu a francouzštinu</li>
+      <li><b>Nakonec smazat tenhle žlutý pruh</b> (blok <code>class="checklist"</code>)</li>
+    </ul>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#0f6b4a" stroke-width="2"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#0f6b4a" stroke-width="2" stroke-linecap="round"/></svg> Zavolám ti</a>
+    <nav class="topnav"><a href="index.html#jak">Jak to funguje</a><a href="nabidka.html">Ceník</a></nav>
+  </div>
+</header>
+
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" style="padding-bottom:28px">
+  <div class="wrap">
+    <div class="stepline">
+      <span class="pill done">Kontakt</span>
+      <span class="pill">Zkušební hovor</span>
+      <span class="pill now">Výběr tarifu</span>
+      <span class="pill">Zvoní telefon</span>
+    </div>
+    <h1>Jeden hovor vás nerozmluví. Návyk ano.</h1>
+    <p class="lede">Zkušební hovor je jeden. Tohle je, jak to vypadá, když se z něj stane pravidelnost: telefon zvoní dvakrát, třikrát nebo pětkrát týdně, vy zvedáte a mluvíte. Bez domlouvání, bez aplikace, bez toho, abyste museli udělat první krok.</p>
+    <div class="cta"><a class="btn block" href="#cenik">Přejít rovnou k ceníku</a></div>
+    <p class="tiny underbtn">Nebo si nejdřív přečtěte, jak jsem k tomu došel — je to kratší, než vypadá.</p>
+  </div>
+</section>
+
+<!-- ===================== VIDEO ===================== -->
+<section style="padding-top:0">
+  <div class="wide">
+    <h2>Takhle to vypadá, když mi zavolá</h2>
+    <p class="small" style="margin-bottom:24px">Skutečný hovor natočený na telefon. Žádný střih, žádný scénář — i s chybami, protože o ty tady jde.</p>
+    <div class="slot video" id="video-slot">
+      <div>
+        <b>Sem přijde video</b>
+        Vložený přehrávač YouTube (Sdílet → Vložit), poměr 16:9. Ideálně: telefon zazvoní, zvednete, kus hovoru, pak ukázat rozbor v mailu. Dvě až tři minuty.
+        <span class="dims">Nahradit tento blok značkou &lt;iframe&gt; z YouTube.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PŘÍBĚH ===================== -->
+<section class="plane">
+  <div class="wrap">
+    <h2>Jak jsem k tomu došel</h2>
+    <p>Slovní zásobu se každý z nás naučí. Já jsem se ji učil kartičkami v Anki — dobrá metoda, tisíce slov. Jenže cizí jazyk se člověk naučí až ve chvíli, kdy začne mluvit. A to je problém pro každého.</p>
+    <p>Možnosti jsou v zásadě dvě. Zaplatit lektora, kolem pěti set korun za hodinu, a mluvit. Nebo si najít někoho, s kým si budu volat. Obojí má stejnou vadu: je to živý člověk, a před živým člověkem se stydím. Zatuhnu. V hlavě si větu složím, doma v klidu ji řeknu — ale naživo ne. Slova mám, jenom je v tu chvíli neposkládám dohromady a raději mlčím.</p>
+    <p>Pak jsou aplikace. Některé už umí mluvit s umělou inteligencí docela dobře. Jenže tu aplikaci musím zapnout já. Ta aktivita musí vzejít ode mě — a večer po práci nevzejde. Nikdy.</p>
+    <p class="pull">Tak jsem si postavil věc, která ten poslední krok udělá za mě.</p>
+    <p>Třikrát týdně, v časovém okně, které jsem si určil, mi v náhodnou minutu zavolá telefon. Na druhé straně je Mike z Kalifornie — umělá inteligence s hlasem, kterému rozumím, a s trpělivostí, kterou by žádný člověk neměl. Mluví se mnou pět minut o tématech, která jsem si vybral. Někdy to trvá šest sedm minut, někdy to ukončím dřív. Nikdo se nesměje, nikdo nic nehodnotí. Když nevím, řeknu to česky a jedeme dál.</p>
+    <p>Do půl hodiny mi přijde e-mailem rozbor: jestli by mi Američan rozuměl, co bylo dobře, co špatně a jak se to říká správně. Každou neděli týdenní shrnutí, prvního v měsíci přehled, jak se posouvám. A hlavně — po pár týdnech zvednu telefon a mluvím, aniž bych přemýšlel o tom, že mluvím.</p>
+    <p>Takhle si volám od léta 2026, anglicky. Problém, který mám já, má většina lidí, co jazyk roky studovali a stejně nemluví: slova mají, ale nikdy nepřijde ta chvíle, kdy by je začali používat. Tohle je jediná věc, kterou znám, kde ta chvíle přijde sama. Tak to nabízím dál.</p>
+    <p class="small" style="margin-top:22px">— Petr Melena, Pohled u Havlíčkova Brodu</p>
+  </div>
+</section>
+
+<!-- ===================== UKÁZKA ROZBORU ===================== -->
+<section>
+  <div class="wrap">
+    <h2>Co přijde do půl hodiny do e-mailu</h2>
+    <p class="lede">Rozbor píše umělá inteligence z přepisu hovoru. Nechválí obecně, cituje, co jste skutečně řekli. Takhle vypadá jeden skutečný — jen jméno je změněné.</p>
+
+    <div class="mail">
+      <div class="hd"><b>Rozbor hovoru — 31. 8. 20:14 — what you did last weekend</b><br>Téma: víkend · Délka hovoru: 340 s · Slov anglicky: 312</div>
+      <div class="bd">
+        <p>Ahoj Tomáši,</p>
+        <h4>Rozuměl by ti cizinec?</h4>
+        <p>Ano, bez větších potíží. Mike se ani jednou nemusel zeptat znovu a vždycky věděl, o čem mluvíš. Správná angličtina to ale vždycky nebyla — hlavně u minulého času, viz níž. Rozumět a mluvit správně jsou dvě různé věci a dnes jsi měl to první.</p>
+        <h4>Co ti šlo</h4>
+        <ul>
+          <li>„We went to my parents' house on Saturday" — celá věta, správný čas, na první pokus.</li>
+          <li>Nevěděl jsi slovo sekačka, tak jsi řekl „the machine for the grass" a jelo se dál. Přesně tak se to dělá.</li>
+          <li>Sám jsi položil otázku („And you? What did you do?") — poprvé za všechny hovory.</li>
+        </ul>
+        <h4>Na tomhle zapracuj</h4>
+        <ul>
+          <li>❌ <span class="fix">I go yesterday to Brno</span> → ✅ <span class="ok">I went to Brno yesterday</span><br><span class="small">Když říkáš, co se stalo, sloveso musí být v minulém tvaru — a „yesterday" patří na konec.</span></li>
+          <li>❌ <span class="fix">I have 44 years</span> → ✅ <span class="ok">I am 44</span><br><span class="small">Věk se v angličtině „je", ne „má". Tohle je nejčastější česká chyba a Američan ji hned pozná.</span></li>
+          <li>❌ <span class="fix">We make a barbecue</span> → ✅ <span class="ok">We had a barbecue</span><br><span class="small">Grilování se „má", ne „dělá" — a bylo to o víkendu, tedy minulý čas.</span></li>
+        </ul>
+        <h4>Kolik jsi toho namluvil</h4>
+        <p>312 slov — zatím nejvíc. První dvě minuty krátké odpovědi, od půlky hovoru delší věty. Rozmluvit se je celý cíl a dnes se to stalo.</p>
+        <h4>Fráze do kartiček</h4>
+        <ul>
+          <li>mow the lawn = posekat trávu<br><span class="small">I mowed the lawn on Sunday. = V neděli jsem posekal trávu.</span></li>
+          <li>have a barbecue = grilovat<br><span class="small">We had a barbecue with friends. = Grilovali jsme s přáteli.</span></li>
+          <li>I'm 44 = je mi 44<br><span class="small">I'm 44, my wife is 41. = Je mi 44, manželce 41.</span></li>
+          <li>lawn mower = sekačka<br><span class="small">We have an old lawn mower. = Máme starou sekačku.</span></li>
+        </ul>
+        <h4>Co příště</h4>
+        <p>Zkus každou odpověď protáhnout o jednu větu navíc. Ne správnější — delší. Správnost přijde sama.</p>
+      </div>
+    </div>
+    <p class="tiny" style="margin-top:14px">U němčiny rozbor navíc sleduje poslech (odpovídali jste na to, na co se partner ptal?) a pojmenuje pravidlo, které vám v řeči utíká. U španělštiny, italštiny a francouzštiny obdobně to, na čem Češi zakopávají nejčastěji.</p>
+  </div>
+</section>
+
+<!-- ===================== DOTAZNÍK ===================== -->
+<section class="plane" id="dotaznik">
+  <div class="wrap">
+    <h2>Dvě otázky, než vyberete tarif</h2>
+    <p class="small" style="margin-bottom:26px">Podle nich nastavím partnera, který vám bude volat — jak rychle mluví, jak dlouhé věty skládá a jak moc vás tlačí do delších odpovědí.</p>
+
+    <span class="qlabel">Jakým jazykem chcete mluvit?</span>
+    <div class="tiles" role="radiogroup" aria-label="Jazyk"><div class="tile"><input type="radio" name="jazyk" id="j-en" value="en" checked><label for="j-en"><span class="fl" style="font-size:20px">🇺🇸</span>Angličtina</label></div><div class="tile"><input type="radio" name="jazyk" id="j-de" value="de"><label for="j-de"><span class="fl" style="font-size:20px">🇩🇪</span>Němčina</label></div><div class="tile"><input type="radio" name="jazyk" id="j-es" value="es"><label for="j-es"><span class="fl" style="font-size:20px">🇪🇸</span>Španělština</label></div><div class="tile"><input type="radio" name="jazyk" id="j-it" value="it"><label for="j-it"><span class="fl" style="font-size:20px">🇮🇹</span>Italština</label></div><div class="tile"><input type="radio" name="jazyk" id="j-fr" value="fr"><label for="j-fr"><span class="fl" style="font-size:20px">🇫🇷</span>Francouzština</label></div></div>
+    <div class="reakce" id="reakce-jazyk"></div>
+
+    <span class="qlabel">Jak si teď stojíte? Bez zkoušek a bez písmenek — jak to cítíte.</span>
+    <div class="tiles one lvl" role="radiogroup" aria-label="Úroveň"><div class="tile"><input type="radio" name="uroven" id="u-1" value="1"><label for="u-1">Rozumím jen trochu a mluvím spíš jednotlivá slova.</label></div><div class="tile"><input type="radio" name="uroven" id="u-2" value="2" checked><label for="u-2">Rozumím dobře, ale když mám mluvit, zaseknu se.</label></div><div class="tile"><input type="radio" name="uroven" id="u-3" value="3"><label for="u-3">Mluvím, ale zadrhávám se a dělám chyby.</label></div><div class="tile"><input type="radio" name="uroven" id="u-4" value="4"><label for="u-4">Mluvím celkem plynně, chci to jen pilovat.</label></div><div class="tile"><input type="radio" name="uroven" id="u-0" value="0"><label for="u-0">Nerozumím skoro vůbec.</label></div></div>
+    <div class="reakce" id="reakce-uroven"></div>
+  </div>
+</section>
+
+<!-- ===================== CENÍK ===================== -->
+<section id="cenik">
+  <div class="wide">
+    <h2>Kolik to stojí</h2>
+    <div class="callout" id="kanal-banner" hidden style="margin-bottom:18px">Jdete z partnerské
+      nabídky — slevový kód zadáte až na platební stránce a projeví se v prvním kroku platby.</div>
+    <div class="kapacita">Jediný rozdíl mezi tarify je, jak často telefon zazvoní. Hovor, rozbor, kartičky i reporty jsou u všech stejné. Čím častěji zvoní, tím méně stojí jeden hovor — a tím rychleji se z toho stane návyk.</div>
+
+    <div class="toggle" role="group" aria-label="Platba">
+      <button type="button" data-obdobi="mesic" aria-pressed="true">Měsíčně</button>
+      <button type="button" data-obdobi="kvartal" aria-pressed="false">Čtvrtletně <span class="badge">−15 %</span></button>
+    </div>
+
+    <div class="tiers">
+      
+      <div class="pricecard" data-tarif="2x">
+        <div class="seats soft">Na rozjezd</div>
+        <p class="amount"><span class="c-mesic">497</span><span class="c-kvartal" hidden>1 267</span> Kč <span class="obd obd-mesic">/ měsíc</span><span class="obd obd-kvartal" hidden>/ čtvrtletí</span></p>
+        <p class="tierline">2 hovory týdně · asi 9 hovorů za měsíc</p>
+        <p class="percall"><span class="c-mesic">55</span><span class="c-kvartal" hidden>47</span> Kč za hovor</p>
+        <p class="savings c-kvartal" hidden>Ušetříte 224 Kč proti měsíční platbě.</p>
+        <ul class="includes">
+          <li>Pět minut hovoru s rodilým mluvčím (AI) ve dnech a v čase, které si vyberete</li>
+          <li>Český rozbor e-mailem po každém hovoru</li>
+          <li>Fráze z hovoru připravené do kartiček</li>
+          <li>Týdenní shrnutí a měsíční přehled vývoje</li>
+          <li>Bez závazku — zrušíte kdykoli</li>
+        </ul>
+        <a class="btn block koupit" href="#" data-tarif="2x">Vybrat 2× týdně</a>
+      </div>
+      
+      <div class="pricecard reco" data-tarif="3x">
+        <div class="seats">Doporučeno</div>
+        <p class="amount"><span class="c-mesic">697</span><span class="c-kvartal" hidden>1 767</span> Kč <span class="obd obd-mesic">/ měsíc</span><span class="obd obd-kvartal" hidden>/ čtvrtletí</span></p>
+        <p class="tierline">3 hovory týdně · asi 13 hovorů za měsíc</p>
+        <p class="percall"><span class="c-mesic">54</span><span class="c-kvartal" hidden>45</span> Kč za hovor</p>
+        <p class="savings c-kvartal" hidden>Ušetříte 324 Kč proti měsíční platbě.</p>
+        <ul class="includes">
+          <li>Pět minut hovoru s rodilým mluvčím (AI) ve dnech a v čase, které si vyberete</li>
+          <li>Český rozbor e-mailem po každém hovoru</li>
+          <li>Fráze z hovoru připravené do kartiček</li>
+          <li>Týdenní shrnutí a měsíční přehled vývoje</li>
+          <li>Bez závazku — zrušíte kdykoli</li>
+        </ul>
+        <a class="btn block koupit" href="#" data-tarif="3x">Vybrat 3× týdně</a>
+      </div>
+      
+      <div class="pricecard" data-tarif="5x">
+        <div class="seats soft">Nejlevnější hovor</div>
+        <p class="amount"><span class="c-mesic">997</span><span class="c-kvartal" hidden>2 547</span> Kč <span class="obd obd-mesic">/ měsíc</span><span class="obd obd-kvartal" hidden>/ čtvrtletí</span></p>
+        <p class="tierline">5 hovorů týdně · asi 22 hovorů za měsíc</p>
+        <p class="percall"><span class="c-mesic">45</span><span class="c-kvartal" hidden>39</span> Kč za hovor</p>
+        <p class="savings c-kvartal" hidden>Ušetříte 444 Kč proti měsíční platbě.</p>
+        <ul class="includes">
+          <li>Pět minut hovoru s rodilým mluvčím (AI) ve dnech a v čase, které si vyberete</li>
+          <li>Český rozbor e-mailem po každém hovoru</li>
+          <li>Fráze z hovoru připravené do kartiček</li>
+          <li>Týdenní shrnutí a měsíční přehled vývoje</li>
+          <li>Bez závazku — zrušíte kdykoli</li>
+        </ul>
+        <a class="btn block koupit" href="#" data-tarif="5x">Vybrat 5× týdně</a>
+      </div>
+    </div>
+
+    <p class="tiny" style="margin-top:22px">Platba kartou přes Stripe, předplatné se obnovuje samo a zrušíte ho jedním klikem v odkazu z potvrzovacího e-mailu — k dalšímu období, bez udání důvodu. Mezi tarify můžete kdykoli přejít. Ceny jsou konečné, Petr Melena je OSVČ a neplátce DPH. Zaplacením souhlasíte s <a href="podminky.html">obchodními podmínkami</a>.</p>
+
+    <p class="center" style="margin-top:30px"><button type="button" class="btn quiet" id="nechci">Nechci, je to na mě moc</button></p>
+  </div>
+</section>
+
+<!-- ===================== DOWNSELL ===================== -->
+<section class="plane" id="zakladni" hidden>
+  <div class="wrap">
+    <h2>Rozumím. Je tu ještě jedna možnost.</h2>
+    <p class="lede">Základní varianta: telefon zvoní dvakrát týdně a vy mluvíte. Bez rozboru, bez kartiček, bez reportů. Jen ten hovor — protože i samotný hovor je to, co vás rozmluví.</p>
+
+    <div class="pricecard" style="margin-top:26px">
+      <div class="seats soft">Základní</div>
+      <p class="amount">297 Kč <span class="obd">/ měsíc</span></p>
+      <p class="tierline">2 hovory týdně · asi 9 za měsíc</p>
+      <p class="percall">33 Kč za hovor</p>
+      <ul class="includes">
+        <li>Pět minut hovoru s rodilým mluvčím (AI) ve 2 dny v týdnu podle vašeho výběru</li>
+        <li>Partner nastavený podle vaší úrovně</li>
+        <li>Bez závazku — zrušíte kdykoli</li>
+        <li class="no">Bez rozboru po hovoru</li>
+        <li class="no">Bez frází do kartiček</li>
+        <li class="no">Bez týdenního a měsíčního reportu</li>
+      </ul>
+      <a class="btn block koupit" href="#" data-tarif="zakladni">Vybrat základní variantu</a>
+      <p class="tiny" style="margin-top:14px">Kdykoli později můžete přejít na plný tarif — rozbory začnou chodit od dalšího hovoru.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section>
+  <div class="wrap">
+    <h2>Než zaplatíte</h2>
+    <div class="qa"><h3>Co se stane po zaplacení?</h3>
+      <p>Při platbě vyplníte telefon, kdy vám má zvonit (ráno, odpoledne, večer) a které dny. Do dvou pracovních dnů přijde první hovor a uvítací e-mail s číslem, které si uložíte do kontaktů.</p></div>
+    <div class="qa"><h3>Můžu změnit dny, okno nebo témata?</h3>
+      <p>Kdykoli. Odpovíte na kterýkoli e-mail s rozborem a napíšete, co chcete jinak. Změna platí od dalšího hovoru.</p></div>
+    <div class="qa"><h3>Co když hovor nezvednu?</h3>
+      <p>Nic. Zavolá zase v dalším naplánovaném dnu. Nezvednuté hovory se nepočítají a nic se za ně neplatí navíc.</p></div>
+    <div class="qa"><h3>Jak zruším předplatné?</h3>
+      <p>V potvrzovacím e-mailu od Stripe je odkaz na správu předplatného. Jedno kliknutí, žádné vysvětlování. Do konce zaplaceného období vám telefon zvoní dál.</p></div>
+    <div class="qa"><h3>Co když zjistím, že je jazyk moc těžký nebo moc lehký?</h3>
+      <p>Napíšete a přenastavím partnera — pomalejší tempo a kratší věty, nebo naopak. Na ceně to nic nemění.</p></div>
+    <div class="qa"><h3>Proč je hovor jen pět minut?</h3>
+      <p>Protože pět minut zvednete i ve všední večer po práci. Půlhodinu ne. A protože jde o to, jak často mluvíte, ne jak dlouho.</p></div>
+    <div class="qa"><h3>Nebylo by lepší platit lektora?</h3>
+      <p>Když k lektorovi chodíte a funguje vám to, ano — a tohle nepotřebujete. Většina lidí, kterým to nabízím, ale lektora nemá, protože by si ho musela najít, domluvit a pak před ním mluvit. Tohle je to, co se stane, když se do ničeho z toho nedokopete: telefon zazvoní sám.</p></div>
+    <div class="qa"><h3>Nebudu pak umět mluvit jen se strojem?</h3>
+      <p>Naopak. Se strojem se rozmluvíte, protože se před ním nestydíte — a před člověka pak přijdete s tím, že jste za měsíc mluvil nahlas víc než za celý předchozí rok. Stroj je rozcvička, ne cíl.</p></div>
+    <div class="qa"><h3>Co když přestanu zvedat?</h3>
+      <p>To je vlastně jediný způsob, jak s tím přestat, aniž byste zrušili předplatné — a proto je to postavené naopak než aplikace: tam musíte začít vy, tady byste museli aktivně přestat. Když vidím, že hovory delší dobu nezvedáte, ozvu se e-mailem a zeptám se, jestli chcete jiné okno, jiné dny, nebo pauzu.</p></div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <p><b>Petr Melena</b> — OSVČ, neplátce DPH</p>
+    <p>IČO: 87235714<br>
+       Sídlo: Pohled 30, 582 21 Pohled<br>
+       E-mail: <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a></p>
+    <p><a href="podminky.html">Obchodní podmínky</a> &nbsp;·&nbsp; <a href="osobni-udaje.html">Zpracování osobních údajů</a></p>
+    <p class="tiny" style="color:#8f979b;margin-top:18px">Hovory vede umělá inteligence. Přepisují se, aby z nich mohl vzniknout rozbor.</p>
+  </div>
+</footer>
+<script>
+(function(){
+  function kodJazyka(s){
+    s = (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    var k = s.slice(0,2);
+    if (["en","de","es","it","fr"].indexOf(k) > -1) return k;
+    if (s.indexOf("angl") > -1) return "en";
+    if (s.indexOf("nem") > -1) return "de";
+    if (s.indexOf("span") > -1) return "es";
+    if (s.indexOf("ital") > -1) return "it";
+    if (s.indexOf("fran") > -1) return "fr";
+    return "";
+  }
+  var D = {"stripe": {"2x_mesic": "https://buy.stripe.com/DOPLNIT-2x-mesicne", "2x_kvartal": "https://buy.stripe.com/DOPLNIT-2x-ctvrtletne", "3x_mesic": "https://buy.stripe.com/DOPLNIT-3x-mesicne", "3x_kvartal": "https://buy.stripe.com/DOPLNIT-3x-ctvrtletne", "5x_mesic": "https://buy.stripe.com/DOPLNIT-5x-mesicne", "5x_kvartal": "https://buy.stripe.com/DOPLNIT-5x-ctvrtletne", "zakladni": "https://buy.stripe.com/DOPLNIT-zakladni"}, "jazyky": {"en": {"kod": "en", "nazev": "Angličtina", "partner": "Mike", "odkud": "z Kalifornie", "kdo": "Američan", "prislovce": "anglicky", "vlajka": "🇺🇸"}, "de": {"kod": "de", "nazev": "Němčina", "partner": "Stefan", "odkud": "z Hannoveru", "kdo": "Němec", "prislovce": "německy", "vlajka": "🇩🇪"}, "es": {"kod": "es", "nazev": "Španělština", "partner": "Carlos", "odkud": "ze Sevilly", "kdo": "Španěl", "prislovce": "španělsky", "vlajka": "🇪🇸"}, "it": {"kod": "it", "nazev": "Italština", "partner": "Giulia", "odkud": "z Boloně", "kdo": "Italka", "prislovce": "italsky", "vlajka": "🇮🇹"}, "fr": {"kod": "fr", "nazev": "Francouzština", "partner": "Camille", "odkud": "z Lyonu", "kdo": "Francouzka", "prislovce": "francouzsky", "vlajka": "🇫🇷"}}, "urovne": {"1": {"kod": 1, "text": "Rozumím jen trochu a mluvím spíš jednotlivá slova.", "reakce": "Půjde to, ale bude to náročné. Partner bude mluvit velmi pomalu a krátce. Doporučuji začít dvěma hovory týdně."}, "2": {"kod": 2, "text": "Rozumím dobře, ale když mám mluvit, zaseknu se.", "reakce": "Přesně pro tohle to vzniklo. Slovní zásobu máte — chybí jen zvyk otevřít pusu. Tři hovory týdně jsou ideální start."}, "3": {"kod": 3, "text": "Mluvím, ale zadrhávám se a dělám chyby.", "reakce": "Tady dělá největší práci rozbor po hovoru — uvidíte černé na bílém, co se vám vrací. Tři až pět hovorů týdně."}, "4": {"kod": 4, "text": "Mluvím celkem plynně, chci to jen pilovat.", "reakce": "Partner na vás bude mluvit normálním tempem a tlačit vás do delších odpovědí. Pět hovorů týdně z toho udělá rutinu."}, "0": {"kod": 0, "text": "Nerozumím skoro vůbec.", "reakce": "Na rovinu: tohle pro vás ještě není. Pět minut hovoru, kterému nerozumíte, vás jen odradí. Naučte se nejdřív základní slovíčka a fráze (třeba kartičkami) a vraťte se, až budete rozumět jednoduché řeči. Rád vám pak zavolám."}}};
+  var stav = {jazyk: "en", uroven: "2", obdobi: "mesic"};
+  var p = new URLSearchParams(location.search);
+  var pj = kodJazyka(p.get("jazyk"));
+  if (D.jazyky[pj]) { stav.jazyk = pj; var r = document.getElementById("j-"+pj); if (r) r.checked = true; }
+  // zdroj kanalu z adresy (samouci.html a spol.) - jde do Stripe, aby bylo videt, odkud clovek prisel
+  var kanal = (p.get("zdroj") || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 20);
+  if (kanal) {
+    var bn = document.getElementById("kanal-banner");
+    if (bn) { bn.hidden = false; }
+  }
+
+  function reakceJazyk(){
+    var j = D.jazyky[stav.jazyk];
+    document.getElementById("reakce-jazyk").textContent =
+      "Volat vám bude " + j.partner + " " + j.odkud + ". Mluví jen " + j.prislovce + " — a trochu česky, kdyby bylo opravdu zle.";
+  }
+  function reakceUroven(){
+    var u = D.urovne[stav.uroven]; var el = document.getElementById("reakce-uroven");
+    el.textContent = u.reakce;
+    el.classList.toggle("warn", stav.uroven === "0");
+  }
+  function prepniObdobi(o){
+    stav.obdobi = o;
+    document.querySelectorAll(".toggle button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.obdobi === o ? "true" : "false"); });
+    document.querySelectorAll(".c-mesic,.obd-mesic").forEach(function(e){ e.hidden = (o !== "mesic"); });
+    document.querySelectorAll(".c-kvartal,.obd-kvartal").forEach(function(e){ e.hidden = (o !== "kvartal"); });
+    odkazy();
+  }
+  function odkazy(){
+    document.querySelectorAll("a.koupit").forEach(function(a){
+      var t = a.dataset.tarif;
+      var klic = (t === "zakladni") ? "zakladni" : t + "_" + stav.obdobi;
+      // kanal muze mit vlastni platebni odkaz (konfig.js -> STRIPE_KANALY); kdyz nema, plati standardni
+      var kn = (window.KONFIG && window.KONFIG.STRIPE_KANALY && window.KONFIG.STRIPE_KANALY[kanal]) || {};
+      var url = kn[klic] || D.stripe[klic] || "#";
+      // client_reference_id se objeví ve Stripe u platby a stroj z něj čte jazyk, úroveň a tarif: en-u2-3x
+      // (a nakonec zdroj kanalu, podle ktereho se pocita provize partnerovi: en-u2-3x-samouci)
+      var ref = stav.jazyk + "-u" + stav.uroven + "-" + t + (kanal ? "-" + kanal : "");
+      a.href = url + (url.indexOf("?") > -1 ? "&" : "?") + "client_reference_id=" + encodeURIComponent(ref);
+    });
+  }
+  document.querySelectorAll('input[name="jazyk"]').forEach(function(i){ i.addEventListener("change", function(){ stav.jazyk = i.value; reakceJazyk(); odkazy(); }); });
+  document.querySelectorAll('input[name="uroven"]').forEach(function(i){ i.addEventListener("change", function(){ stav.uroven = i.value; reakceUroven(); odkazy(); }); });
+  document.querySelectorAll(".toggle button").forEach(function(b){ b.addEventListener("click", function(){ prepniObdobi(b.dataset.obdobi); }); });
+  document.getElementById("nechci").addEventListener("click", function(){
+    var z = document.getElementById("zakladni"); z.hidden = false;
+    this.parentNode.hidden = true;
+    z.scrollIntoView({behavior: "smooth", block: "start"});
+  });
+  document.querySelectorAll("a.koupit").forEach(function(a){
+    a.addEventListener("click", function(ev){
+      if (a.getAttribute("href").indexOf("DOPLNIT") > -1) {
+        ev.preventDefault();
+        a.textContent = "Platební odkaz ještě není nastavený (Stripe, návod krok 8)";
+      }
+    });
+  });
+  // konfig.js může odkazy Stripe přepsat (načte se až po tomto skriptu, proto hook)
+  window.DATA_STRIPE_HOOK = function(S){ for (var k in S) if (S[k]) D.stripe[k] = S[k]; odkazy(); };
+  reakceJazyk(); reakceUroven(); odkazy();
+})();
+</script>
+<script src="konfig.js"></script>
+<script>
+(function(){
+  var K = window.KONFIG || {};
+  var ostre = (K.OSTRE_DOMENY || []).indexOf(location.hostname) > -1;
+  document.documentElement.classList.add(ostre ? "ostre" : "nahled");
+
+  // 1) žluté pracovní pruhy jen v náhledu
+  if (ostre) document.querySelectorAll(".checklist").forEach(function(e){ e.remove(); });
+
+  // 2) formulář Tally do #zkouska-slot
+  var slot = document.getElementById("zkouska-slot");
+  if (slot) {
+    if (K.TALLY_FORM_ID) {
+      slot.className = "tally-embed";
+      slot.style.minHeight = "0";
+      // zdroj kanalu (data-zdroj na slotu) jde do skryteho pole formulare, aby bylo videt,
+      // odkud clovek prisel - podle toho se pak pocita provize partnerovi
+      var zdroj = slot.dataset.zdroj ? "&zdroj=" + encodeURIComponent(slot.dataset.zdroj) : "";
+      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + K.TALLY_FORM_ID +
+        '?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="520" ' +
+        'frameborder="0" marginheight="0" marginwidth="0" title="Zkušební hovor zdarma"></iframe>';
+      var d=document,w="https://tally.so/widgets/embed.js",v=function(){ if (typeof Tally!=="undefined") Tally.loadEmbeds(); else d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc;}); };
+      if (typeof Tally!=="undefined") v(); else if (!d.querySelector('script[src="'+w+'"]')) { var sc=d.createElement("script"); sc.src=w; sc.onload=v; sc.onerror=v; d.body.appendChild(sc); }
+    } else if (ostre) {
+      slot.innerHTML = '<div><b>Formulář se připravuje.</b> Napište mi zatím na <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a> — jméno, číslo a jazyk.</div>';
+      slot.style.borderColor = "rgba(255,255,255,.55)";
+    }
+  }
+
+  // 3) video do #video-slot (nebo skrýt celou sekci)
+  var vid = document.getElementById("video-slot");
+  if (vid) {
+    if (K.VIDEO_YOUTUBE_ID) {
+      vid.className = "video-embed";
+      vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
+        'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+    } else if (ostre) {
+      var sec = vid.closest("section"); if (sec) sec.hidden = true;
+    }
+  }
+
+  // 4) screenshoty (nebo skrýt sekci)
+  var shots = document.querySelectorAll(".shots .slot.shot");
+  if (shots && shots.length) {
+    var soubory = K.SCREENSHOTY || [];
+    if (soubory.length) {
+      shots.forEach(function(sl, i){
+        if (!soubory[i]) { sl.hidden = true; return; }
+        var popis = (sl.querySelector("b") || {}).textContent || "";
+        sl.className = "shot-img" + (sl.classList.contains("span2") ? " span2" : "");
+        sl.innerHTML = '<img src="obrazky/' + soubory[i] + '" alt="' + popis.replace(/"/g,"") + '" loading="lazy">';
+      });
+    } else if (ostre) {
+      var sec2 = shots[0].closest("section"); if (sec2) sec2.hidden = true;
+    }
+  }
+
+  // 5) Stripe odkazy — konfig má přednost před hodnotami zapečenými ve stránce
+  if (K.STRIPE && window.DATA_STRIPE_HOOK) window.DATA_STRIPE_HOOK(K.STRIPE);
+
+  // 6) Meta pixel (jen na ostré doméně a jen když je ID)
+  if (ostre && K.META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', K.META_PIXEL_ID); fbq('track', 'PageView');
+    var udalost = document.body.getAttribute("data-udalost");
+    if (udalost) fbq('track', udalost);
+  }
+})();
+</script>
+</body>
+</html>

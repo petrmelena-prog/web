@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dekuji.html
+Disallow: /dekuji-kontakt.html
+Disallow: /samouci.html
+Disallow: /reklama.html
+Sitemap: https://zavolamti.cz/sitemap.txt
