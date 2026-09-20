@@ -401,6 +401,7 @@ footer p{margin:0 0 10px}
 </section>
 
 <!-- ===================== ZKOUŠKA ===================== -->
+
 <section class="zkouska" id="zkouska">
   <div class="wrap">
     <h2>Zkuste si jeden hovor zdarma</h2>
@@ -411,7 +412,7 @@ footer p{margin:0 0 10px}
         <div>
           <b>Sem přijde formulář</b>
           Vložený formulář z Tally se skrytým polem <code>zdroj=samouci</code>.
-          <span class="dims">Nahradit značkou &lt;iframe&gt; z Tally (návod, krok 7).</span>
+          <span class="dims">Načte se sám, jakmile je ID v konfig.js.</span>
         </div>
       </div>
     </div>
@@ -420,6 +421,7 @@ footer p{margin:0 0 10px}
       <a href="osobni-udaje.html" style="text-decoration:underline">dokumentu o zpracování osobních údajů</a>.</p>
   </div>
 </section>
+
 
 <!-- ===================== OTÁZKY ===================== -->
 <section>
@@ -467,18 +469,21 @@ footer p{margin:0 0 10px}
   // 1) žluté pracovní pruhy jen v náhledu
   if (ostre) document.querySelectorAll(".checklist").forEach(function(e){ e.remove(); });
 
-  // 2) formulář Tally do #zkouska-slot
-  var slot = document.getElementById("zkouska-slot");
-  if (slot) {
-    if (K.TALLY_FORM_ID) {
+  // 2) formuláře Tally do #zkouska-slot (velký) a #mail-slot (jen e-mail, první krok reklamy)
+  vlozFormular(document.getElementById("zkouska-slot"), K.TALLY_FORM_ID, "Zkušební hovor zdarma", 520);
+  vlozFormular(document.getElementById("mail-slot"), K.TALLY_FORM_ID_MAIL, "Zkušební hovor zdarma", 300);
+
+  function vlozFormular(slot, id, titulek, vyska) {
+    if (!slot) return;
+    if (id) {
       slot.className = "tally-embed";
       slot.style.minHeight = "0";
       // zdroj kanalu (data-zdroj na slotu) jde do skryteho pole formulare, aby bylo videt,
       // odkud clovek prisel - podle toho se pak pocita provize partnerovi
       var zdroj = slot.dataset.zdroj ? "&zdroj=" + encodeURIComponent(slot.dataset.zdroj) : "";
-      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + K.TALLY_FORM_ID +
-        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="520" ' +
-        'frameborder="0" marginheight="0" marginwidth="0" title="Zkušební hovor zdarma"></iframe>';
+      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + id +
+        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="' + vyska + '" ' +
+        'frameborder="0" marginheight="0" marginwidth="0" title="' + titulek + '"></iframe>';
       var d=document,w="https://tally.so/widgets/embed.js",v=function(){ if (typeof Tally!=="undefined") Tally.loadEmbeds(); else d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc;}); };
       if (typeof Tally!=="undefined") v(); else if (!d.querySelector('script[src="'+w+'"]')) { var sc=d.createElement("script"); sc.src=w; sc.onload=v; sc.onerror=v; d.body.appendChild(sc); }
     } else if (ostre) {

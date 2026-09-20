@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zpracování osobních údajů | Zavolám ti</title>
-<meta name="description" content="Jak služba Zavolám ti zpracovává osobní údaje: nahrávání a přepis hovorů, zpracovatelé, doba uchování, práva.">
-<meta property="og:title" content="Zpracování osobních údajů | Zavolám ti">
-<meta property="og:description" content="Jak služba Zavolám ti zpracovává osobní údaje: nahrávání a přepis hovorů, zpracovatelé, doba uchování, práva.">
+<title>Zkušební hovor zdarma | Zavolám ti</title>
+<meta name="description" content="Poslední krok: číslo, jméno a jazyk. Do dvou pracovních dnů zazvoní telefon.">
+<meta property="og:title" content="Zkušební hovor zdarma | Zavolám ti">
+<meta property="og:description" content="Poslední krok: číslo, jméno a jazyk. Do dvou pracovních dnů zazvoní telefon.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zavolamti.cz/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -287,27 +287,16 @@ footer p{margin:0 0 10px}
 }
 
 
-.wrap{max-width:760px}
-.pravni h2{font-size:22px;margin-top:40px}
-.pravni h3{font-size:18px;margin-top:26px}
-.pravni p,.pravni li{font-size:17px}
-.pravni ol,.pravni ul{padding-left:24px}
-.pravni li{margin-bottom:8px}
-.verze{font-size:15px;color:var(--ink-2);margin-top:40px;border-top:1px solid var(--line-soft);padding-top:16px}
-table{border-collapse:collapse;width:100%;margin:12px 0 20px;font-size:16px}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top}
-th{font-size:13.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2)}
-
 </style>
 </head>
-<body>
+<body data-udalost="Lead">
 <!-- PŘED SPUŠTĚNÍM SMAZAT: celý tento žlutý blok -->
 <div class="checklist">
   <div class="wrap">
     <h4>Před spuštěním doplnit</h4>
     <ul>
-      <li><b>Toto je návrh (verze 1) jako podklad pro právníka</b> — před ostrým prodejem nechat zkontrolovat (odstoupení do 14 dnů, nahrávání hovorů, předávání dat do USA, cookie lišta u pixelu). Claude není právník.</li>
-      <li>Doplnit datum spuštění do věty „Verze 1, platná od …"</li>
+      <li>Druhý krok dvoukrokového funnelu. První krok je na <code>reklama.html</code> (jen e-mail + souhlas), Tally ho po odeslání přesměruje sem.</li>
+      <li>V Tally u formuláře na e-mail nastavit Redirect on completion na <code>https://zavolamti.cz/zkouska.html</code></li>
       <li><b>Nakonec smazat tenhle žlutý pruh</b> (blok <code>class="checklist"</code>)</li>
     </ul>
   </div>
@@ -321,65 +310,54 @@ th{font-size:13.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--in
 </header>
 
 
-<section class="hero" style="padding-bottom:10px"><div class="wrap">
-  <h1>Zpracování osobních údajů</h1>
-  <p class="lede">Co o vás víme, proč, kdo to vidí a jak dlouho to držíme — u služby Zavolám ti</p>
-</div></section>
-<section style="padding-top:10px"><div class="wrap pravni">
+<section class="hero" style="padding-bottom:24px">
+  <div class="wrap">
+    <div class="stepline">
+      <span class="pill done">E-mail</span>
+      <span class="pill now">Číslo a jazyk</span>
+      <span class="pill">Zvoní telefon</span>
+      <span class="pill">Rozbor v e-mailu</span>
+    </div>
+    <h1>Zbývá poslední krok</h1>
+    <p class="lede">Číslo, jméno a jazyk. Nic víc — žádná registrace, žádné heslo.
+      Do dvou pracovních dnů vám zazvoní telefon.</p>
+  </div>
+</section>
 
-<h2>1. Správce</h2>
-<p>Správcem osobních údajů je Petr Melena, IČO 87235714, se sídlem Pohled 30, 582 21 Pohled, fyzická osoba podnikající podle živnostenského zákona, neplátce DPH. Kontakt pro všechno, co se týká vašich údajů: <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a>. Pověřence pro ochranu osobních údajů správce nemá (nemá povinnost ho jmenovat).</p>
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="slot form" id="zkouska-slot" style="min-height:420px">
+      <div>
+        <b>Sem přijde formulář</b>
+        Tentýž vložený formulář z Tally jako na úvodní stránce (<code>TALLY_FORM_ID</code>).
+        <span class="dims">Načte se sám, jakmile je ID v konfig.js.</span>
+      </div>
+    </div>
+    <p class="tiny" style="margin-top:18px">Vaše číslo použiju jen na tenhle jeden hovor. Hovor se přepisuje,
+      aby z něj mohl vzniknout rozbor — podrobnosti v
+      <a href="osobni-udaje.html" style="text-decoration:underline">dokumentu o zpracování osobních údajů</a>.</p>
+  </div>
+</section>
 
-<h2>2. Jaké údaje a proč</h2>
-<table>
-  <tr><th>údaje</th><th>k čemu</th><th>právní základ</th></tr>
-  <tr><td>jméno, telefonní číslo, e-mail, zvolený jazyk, uvedená úroveň, preferovaný čas a dny, témata, poznámka o vás</td><td>abychom vám mohli zavolat ve správný čas, správným jazykem a přiměřeným tempem, a poslat rozbor</td><td>zkušební hovor: váš souhlas (formulář); placená služba: plnění smlouvy</td></tr>
-  <tr><td><b>nahrávka a přepis hovoru</b></td><td>bez přepisu nevznikne rozbor. Přepis se pořizuje automaticky u každého hovoru (kromě základní varianty, kde se nepořizuje)</td><td>souhlas (zkušební hovor) / plnění smlouvy (placená služba); na nahrávání jste upozorněni před hovorem i v uvítacím e-mailu</td></tr>
-  <tr><td>rozbory hovorů, týdenní a měsíční přehledy</td><td>sledování vašeho vývoje, obsah služby</td><td>plnění smlouvy</td></tr>
-  <tr><td>platební údaje</td><td>platbu zpracovává Stripe; správce vidí jen jméno, e-mail, telefon, částku, tarif a odpovědi z objednávky — <b>číslo karty nikdy</b></td><td>plnění smlouvy, zákonná povinnost (účetnictví)</td></tr>
-  <tr><td>technické záznamy o hovorech (čas, délka, zda byl zvednut)</td><td>provoz, řešení potíží, vyúčtování</td><td>oprávněný zájem správce na fungování služby</td></tr>
-  <tr><td>e-mailová komunikace s vámi</td><td>podpora, změny nastavení</td><td>plnění smlouvy / oprávněný zájem</td></tr>
-</table>
-<p>Marketingové e-maily (nabídky, novinky) posíláme jen s vaším souhlasem nebo stávajícím zákazníkům na základě oprávněného zájmu; z každého se lze jedním klikem odhlásit.</p>
-
-<h2>3. Kdo údaje zpracovává za nás</h2>
-<p>Službu stavíme z několika technologií. Jejich provozovatelé jsou naši zpracovatelé a údaje zpracovávají jen podle našich pokynů:</p>
-<table>
-  <tr><th>kdo</th><th>co dělá</th><th>kde</th></tr>
-  <tr><td>Twilio Inc.</td><td>telefonní spojení (odchozí hovor na vaše číslo)</td><td>USA / EU; předávání podle rámce EU-U.S. Data Privacy Framework a standardních smluvních doložek</td></tr>
-  <tr><td>ElevenLabs Inc.</td><td>hlas konverzačního partnera, rozpoznání řeči, přepis hovoru</td><td>USA; DPF / standardní smluvní doložky</td></tr>
-  <tr><td>Google LLC (Gemini)</td><td>napsání rozboru a přehledů z přepisu</td><td>USA / EU; DPF / standardní smluvní doložky</td></tr>
-  <tr><td>Stripe Payments Europe Ltd.</td><td>platby a předplatné</td><td>Irsko / USA</td></tr>
-  <tr><td>GitHub Inc. (Microsoft)</td><td>uložení vašich nastavení, přepisů a rozborů v soukromém úložišti, běh systému</td><td>USA / EU; DPF</td></tr>
-  <tr><td>Resend Inc.</td><td>odesílání e-mailů (rozbory, přehledy, potvrzení)</td><td>USA / EU</td></tr>
-  <tr><td>Tally B.V.</td><td>formulář na zkušební hovor</td><td>EU (Belgie)</td></tr>
-  <tr><td>ZONER a.s. (Czechia.com)</td><td>doména a e-mailová schránka správce</td><td>ČR</td></tr>
-</table>
-<p>Nikomu dalšímu údaje neprodáváme ani nepředáváme. Výjimkou je zákonná povinnost (např. účetní doklady finančnímu úřadu).</p>
-
-<h2>4. Jak dlouho údaje držíme</h2>
-<ul>
-  <li><b>Přepis hovoru</b>: nejdéle 30 dní od hovoru — po vytvoření rozboru už není potřeba. U základní varianty se nepořizuje.</li>
-  <li><b>Rozbory a přehledy</b>: po dobu trvání služby a 12 měsíců poté, abyste se k nim mohli vrátit a abychom mohli srovnávat vývoj.</li>
-  <li><b>Kontaktní údaje a nastavení</b>: po dobu služby a 30 dní po jejím ukončení; u zkušebního hovoru 90 dní od hovoru, pokud si službu neobjednáte.</li>
-  <li><b>Účetní doklady</b> (potvrzení o platbách): 10 let podle zákona o účetnictví a DPH.</li>
-  <li>Nahrávku hlasu jako takovou neuchováváme; ElevenLabs ji zpracuje pro přepis a smaže podle svých podmínek (nejdéle v řádu dnů).</li>
-</ul>
-
-<h2>5. Vaše práva</h2>
-<p>Můžete kdykoli požádat o <b>přístup</b> k údajům (pošleme vám všechny rozbory a nastavení), <b>opravu</b>, <b>výmaz</b> („smažte všechno" — provedeme do 30 dnů, kromě účetních dokladů), <b>omezení</b> zpracování, <b>přenos</b> údajů ve strojově čitelné podobě a <b>vznést námitku</b> proti zpracování na základě oprávněného zájmu. Souhlas (u zkušebního hovoru a u marketingu) můžete kdykoli odvolat; na zákonnost dřívějšího zpracování to nemá vliv. Stačí e-mail na <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a>. Pokud se domníváte, že s vašimi údaji zacházíme špatně, můžete se obrátit na Úřad pro ochranu osobních údajů (<a href="https://www.uoou.cz" target="_blank" rel="noopener">uoou.cz</a>).</p>
-
-<h2>6. Automatizované zpracování</h2>
-<p>Konverzačního partnera i rozbory tvoří umělá inteligence. Nejde o rozhodování s právními účinky vůči vám — výstupem je text, který si přečtete a naložíte s ním podle svého. Úroveň, kterou jste uvedli, ovlivňuje jen tempo a délku vět partnera; kdykoli ji můžete změnit e-mailem.</p>
-
-<h2>7. Cookies a měření na webu</h2>
-<p>Web sám žádné cookies neukládá. Vložený formulář (Tally) a platební brána (Stripe) používají technické cookies nutné pro svou funkci. Pokud spustíme reklamu, může být na webu měřicí kód Meta (Facebook) — v takovém případě vás na to upozorníme lištou a kód se načte až po vašem souhlasu. <span class="jen-nahled todo-inline">Před zapnutím pixelu doplnit cookie lištu.</span></p>
-
-<h2>8. Bezpečnost</h2>
-<p>Přístupové klíče ke všem službám jsou uloženy v šifrovaném úložišti, úložiště s vašimi údaji je soukromé, komunikace je šifrovaná (HTTPS). Přístup k údajům má pouze správce.</p>
-
-<p class="verze">Verze 1, září 2026.</p>
-</div></section>
+<section class="plane">
+  <div class="wrap">
+    <h2>Co bude dál</h2>
+    <ol class="steps">
+      <li>
+        <h3>Uložte si číslo +420 910 927 989</h3>
+        <p>Ať vám hovor nepřijde jako neznámý. Připomenu vám to e-mailem.</p>
+      </li>
+      <li>
+        <h3>Do dvou pracovních dnů zazvoní telefon</h3>
+        <p>V okně, které si vyberete, v náhodnou minutu. Zvednete a pět minut mluvíte.</p>
+      </li>
+      <li>
+        <h3>Do půl hodiny přijde rozbor</h3>
+        <p>Co bylo dobře, co špatně a jak se to říká správně. A tím zkouška končí — nikdo vám nevolá znovu.</p>
+      </li>
+    </ol>
+  </div>
+</section>
 
 
 <footer>
