@@ -1,3 +1,0 @@
-Sem nahrajte screenshoty (JPG nebo PNG, sirka do 1200 px) a jejich nazvy zapiste
-do konfig.js do pole SCREENSHOTY ve stejnem poradi, jako jsou popisky na uvodni strance:
-1 prichozi hovor, 2 rozbor v e-mailu, 3 usek prepisu (na sirku), 4 karticky, 5 mesicni report.
