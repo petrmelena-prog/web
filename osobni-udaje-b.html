@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zpracování osobních údajů | Zavolám ti</title>
+<meta name="description" content="Jak služba Zavolám ti zpracovává osobní údaje: nahrávání a přepis hovorů, zpracovatelé, doba uchování, práva.">
+<meta property="og:title" content="Zpracování osobních údajů | Zavolám ti">
+<meta property="og:description" content="Jak služba Zavolám ti zpracovává osobní údaje: nahrávání a přepis hovorů, zpracovatelé, doba uchování, práva.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zavolamti.cz/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* ============================================================
+   ZAVOLÁM TI — cartoon varianta (A/B test)
+   Jen vzhled. Texty, formuláře a skripty jsou shodné s verzí A.
+   ============================================================ */
+:root{
+  --cream:#FFF6EC; --paper:#FFFFFF; --ink:#1B1229; --ink-soft:#5E4E7A;
+  --grape:#7C4DFF; --grape-d:#5B2BD9; --coral:#FF5C7A; --lemon:#FFD84D;
+  --mint:#2FD8A8; --sky:#57CBFF; --sky-soft:#BFEAFF; --bubble:#FFC9D6;
+  --radius:22px; --shadow:6px 6px 0 var(--ink); --shadow-sm:4px 4px 0 var(--ink);
+  --line:3px solid var(--ink);
+  --todo:#8A5A00; --todo-bg:#FFF0BE;
+  --display:"Baloo 2","Nunito",system-ui,sans-serif;
+  --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--body);
+  font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--grape-d);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+a:hover{color:var(--coral)}
+.wrap{width:min(1100px, 100% - 40px);margin-inline:auto}
+.wide{width:min(1280px, 100% - 40px);margin-inline:auto}
+section{padding:64px 0}
+
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.06;margin:0 0 .5em;letter-spacing:-.01em}
+h1{font-size:clamp(34px,6vw,58px);text-shadow:4px 4px 0 var(--lemon),6px 6px 0 rgba(27,18,41,.22)}
+h2{font-size:clamp(26px,4vw,38px);
+  background:linear-gradient(transparent 60%, var(--lemon) 60%, var(--lemon) 93%, transparent 93%);
+  display:inline;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+h3{font-size:clamp(19px,2.4vw,23px)}
+p{margin:0 0 1em}
+p:last-child{margin-bottom:0}
+.lede{font-size:clamp(19px,2.2vw,23px);font-weight:600}
+.small{font-size:16px;color:var(--ink-soft)}
+.tiny{font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+.center{text-align:center}
+.eyebrow{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--grape-d)}
+
+/* pracovni zluty pruh (na ostre domene ho JS odstrani) */
+.checklist{background:var(--lemon);border-bottom:var(--line);padding:16px 0;font-size:15px}
+.checklist h4{margin:0 0 6px;font-family:var(--display);font-weight:800;font-size:17px}
+.checklist ul{margin:0;padding-left:20px}
+.checklist li{margin:3px 0}
+.checklist code{background:rgba(27,18,41,.12);border-radius:6px;padding:1px 6px;font-size:13.5px}
+
+/* hlavicka */
+header.top{background:var(--paper);border-bottom:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:23px;
+  white-space:nowrap;color:var(--ink);text-decoration:none}
+.logo:hover{color:var(--grape-d)}
+.logo svg{width:24px;height:24px;flex:0 0 auto}
+.topnav{display:flex;gap:10px;flex-wrap:wrap}
+.topnav a{font-family:var(--display);font-weight:800;font-size:15px;color:var(--ink);text-decoration:none;
+  background:var(--lemon);border:2px solid var(--ink);border-radius:999px;padding:6px 15px;
+  box-shadow:3px 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.topnav a:hover{color:var(--ink);transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+
+/* tlacitka */
+.btn{display:inline-block;font-family:var(--display);font-weight:800;font-size:20px;line-height:1.2;
+  background:var(--coral);color:#fff;text-decoration:none;border:var(--line);border-radius:18px;
+  padding:16px 28px;box-shadow:var(--shadow);transition:transform .08s,box-shadow .08s}
+.btn:hover{color:#fff;transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
+.btn.block{display:block;text-align:center;width:100%}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+.btn.ghost:hover{background:var(--lemon);color:var(--ink)}
+.btn.quiet{background:var(--paper);color:var(--ink);box-shadow:var(--shadow-sm)}
+.btn.quiet:hover{background:var(--lemon);color:var(--ink)}
+.btn[aria-disabled="true"]{opacity:.5;pointer-events:none}
+
+/* hero */
+.hero{padding:56px 0 64px;border-bottom:var(--line);
+  background:radial-gradient(var(--lemon) 2.6px, transparent 2.7px) 0 0/54px 54px,
+             radial-gradient(var(--bubble) 2.6px, transparent 2.7px) 27px 27px/54px 54px,
+             var(--cream)}
+.hero h1{margin-bottom:.35em}
+.hero .lede{max-width:36ch}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.hero-text{min-width:0}
+
+/* telefon */
+.phonebox{margin:0;background:var(--grape);border:var(--line);border-radius:30px;padding:26px 0;
+  display:flex;justify-content:center;box-shadow:var(--shadow);transform:rotate(2deg)}
+.ring{width:165px;height:auto}
+.ring .waves{stroke:var(--lemon);stroke-width:4;stroke-linecap:round;fill:none}
+.ring .a1{animation:blip 2.6s ease-in-out infinite}
+.ring .a2{animation:blip 2.6s ease-in-out .16s infinite}
+@keyframes blip{0%,100%{opacity:.25}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.ring .a1,.ring .a2{animation:none;opacity:.8}}
+
+/* jazykove samolepky */
+.langs{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 26px;padding:0;list-style:none}
+.lang{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:800;font-size:15px;
+  background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:6px 15px;box-shadow:3px 3px 0 var(--ink)}
+.lang:nth-child(2n){background:var(--mint);transform:rotate(-2deg)}
+.lang:nth-child(3n){background:var(--sky);transform:rotate(1.5deg)}
+.lang:nth-child(5n){background:var(--bubble);transform:rotate(-1deg)}
+.lang .fl{font-size:18px;line-height:1}
+.cta{margin:8px 0 10px}
+.underbtn{margin-top:12px}
+
+/* pasy a karty */
+.plane{background:var(--sky-soft);border-top:var(--line);border-bottom:var(--line)}
+section.plane ~ section.plane{background:var(--lemon)}
+/* zluty zvyraznovac nadpisu by na zltem pasu zmizel - na pasech je bily */
+.plane h2{background:linear-gradient(transparent 60%, #fff 60%, #fff 93%, transparent 93%)}
+.block{margin-bottom:26px}
+.block:last-child{margin-bottom:0}
+.num{font-family:var(--display);font-weight:800}
+.pull{font-family:var(--display);font-weight:800;font-size:clamp(21px,3vw,28px);line-height:1.25;
+  background:var(--paper);border:var(--line);border-radius:var(--radius);padding:22px 24px;
+  box-shadow:var(--shadow);transform:rotate(-1deg);margin:26px 0}
+.callout{background:var(--mint);border:var(--line);border-radius:var(--radius);padding:22px 24px;
+  box-shadow:var(--shadow);font-weight:700;font-size:18px;margin-bottom:22px}
+
+/* cislovane seznamy */
+.kroky4{counter-reset:k;list-style:none;padding:0;margin:26px 0 0;display:grid;gap:16px}
+.kroky4 li{counter-increment:k;position:relative;background:var(--paper);border:var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px 22px 20px 80px;font-size:17px}
+.kroky4 li::before{content:counter(k);position:absolute;left:18px;top:17px;width:46px;height:46px;
+  display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:23px;color:#fff;
+  background:var(--grape);border:2px solid var(--ink);border-radius:50%;box-shadow:2px 2px 0 var(--ink)}
+.kroky4 li:nth-child(2)::before{background:var(--coral)}
+.kroky4 li:nth-child(3)::before{background:var(--sky);color:var(--ink)}
+.kroky4 li:nth-child(4)::before{background:var(--mint);color:var(--ink)}
+.kroky4 li b{font-weight:800}
+
+.steps{counter-reset:s;list-style:none;padding:0;margin:26px 0 0;display:grid;gap:18px}
+.steps li{counter-increment:s;position:relative;background:var(--paper);border:var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px 22px 84px}
+.steps li:last-child{margin-bottom:0}
+.steps li::before{content:counter(s);position:absolute;left:20px;top:20px;width:48px;height:48px;
+  display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:24px;color:#fff;
+  background:var(--grape);border:2px solid var(--ink);border-radius:50%;box-shadow:2px 2px 0 var(--ink)}
+.steps li:nth-child(2)::before{background:var(--coral)}
+.steps li:nth-child(3)::before{background:var(--mint);color:var(--ink)}
+.steps h3{margin:0 0 .3em}
+.steps p{margin:0;color:var(--ink-soft)}
+
+/* postup nahore na zkousce */
+.stepline{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;padding:0;list-style:none}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-weight:800;font-size:14px;
+  background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:6px 15px;
+  box-shadow:2px 2px 0 var(--ink);color:var(--ink-soft)}
+.pill.done{background:var(--mint);color:var(--ink)}
+.pill.done::before{content:"✓"}
+.pill.now{background:var(--coral);color:#fff;transform:rotate(-2deg)}
+
+/* fialovy pas s formularem */
+.zkouska{background:var(--grape);border-top:var(--line);border-bottom:var(--line);color:#fff}
+.zkouska h2,.zkouska h3{color:#fff}
+.zkouska h2{background:linear-gradient(transparent 60%, rgba(255,216,77,.5) 60%, rgba(255,216,77,.5) 93%, transparent 93%)}
+.zkouska .lede{color:#fff}
+.zkouska .tiny{color:#EAE2FF}
+.zkouska a{color:var(--lemon)}
+.zkouska a:hover{color:#fff}
+.zkouska .btn{background:var(--lemon);color:var(--ink)}
+.zkouska .btn:hover{color:var(--ink)}
+.zkouska .slot{background:rgba(255,255,255,.16);border-color:#fff;color:#fff}
+.zkouska .slot b{color:#fff}
+
+/* misto pro formular + vlozeny Tally */
+.slot{border:3px dashed var(--todo);background:var(--todo-bg);border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:26px 22px;
+  color:var(--todo);font-size:15.5px;line-height:1.55}
+.slot b{display:block;font-family:var(--display);font-weight:800;font-size:17px;margin-bottom:4px}
+.slot .dims{display:block;margin-top:6px;font-size:13px;opacity:.85}
+.slot.form{min-height:210px}
+.tally-embed{background:var(--paper);border:var(--line);border-radius:var(--radius);
+  padding:20px 16px;box-shadow:var(--shadow)}
+.tally-embed iframe{display:block;width:100%;border:0}
+
+/* caste otazky */
+.qa{background:var(--paper);border:var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);
+  padding:22px 24px;margin-bottom:16px}
+.qa:nth-of-type(odd){transform:rotate(-.45deg)}
+.qa:nth-of-type(even){transform:rotate(.45deg)}
+.qa:last-of-type{margin-bottom:0}
+.qa h3{margin:0 0 .35em}
+.qa p{margin:0;color:var(--ink-soft)}
+
+footer{background:var(--ink);color:#F3EEFF;border-top:var(--line);padding:42px 0;font-size:15.5px}
+footer a{color:var(--lemon)}
+footer a:hover{color:var(--bubble)}
+footer p{margin:0 0 .6em}
+footer p:last-child{margin-bottom:0}
+footer .tiny{color:#C5B8DE}
+
+html.nahled .jen-ostre{display:none}
+html.ostre .jen-nahled{display:none}
+
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .phonebox{transform:none}
+  .hero .lede{max-width:none}
+}
+@media (max-width:600px){
+  body{font-size:17px}
+  section{padding:44px 0}
+  .wrap,.wide{width:min(1100px, 100% - 32px)}
+  h1{text-shadow:3px 3px 0 var(--lemon),4px 4px 0 rgba(27,18,41,.22)}
+  .btn{font-size:18px;padding:14px 22px}
+  .kroky4 li,.steps li{padding:70px 20px 20px}
+  .kroky4 li::before,.steps li::before{top:16px;left:18px}
+  .pull,.callout{padding:18px 18px}
+  .pull{transform:none}
+  .qa{transform:none!important}
+  .top .wrap{flex-wrap:wrap}
+}
+
+/* ============================================================
+   CENÍK, DOTAZNÍK, UKÁZKA ROZBORU, RECENZE, PRÁVNÍ STRÁNKY
+   ============================================================ */
+.tiers{display:grid;grid-template-columns:1fr;gap:20px}
+.pricecard{position:relative;background:var(--paper);border:var(--line);border-radius:26px;
+  padding:28px 26px;box-shadow:var(--shadow)}
+.pricecard.reco{background:var(--lemon);box-shadow:8px 8px 0 var(--ink);transform:rotate(-1deg)}
+.amount{font-family:var(--display);font-weight:800;font-size:46px;line-height:1;margin:0;letter-spacing:-.02em}
+.amount .obd{display:block;font-family:var(--body);font-size:16px;font-weight:700;color:var(--ink-soft);margin-top:9px}
+.tierline{font-size:16.5px;margin:10px 0 0;font-weight:700}
+.percall{display:inline-block;margin:12px 0 0;font-family:var(--display);font-weight:800;font-size:15.5px;
+  background:var(--mint);border:2px solid var(--ink);border-radius:999px;padding:4px 14px;box-shadow:2px 2px 0 var(--ink)}
+.seats{display:inline-block;background:var(--coral);color:#fff;font-family:var(--display);font-weight:800;
+  font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;
+  border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);margin-bottom:16px;transform:rotate(-2deg)}
+.seats.soft{background:var(--sky);color:var(--ink)}
+.includes{list-style:none;margin:22px 0;padding:0}
+.includes li{position:relative;padding-left:34px;margin-bottom:11px;font-size:16.5px;font-weight:600}
+.includes li::before{content:"✓";position:absolute;left:0;top:0;width:24px;height:24px;display:grid;
+  place-items:center;font-family:var(--display);font-weight:800;font-size:14px;color:var(--ink);
+  background:var(--mint);border:2px solid var(--ink);border-radius:50%}
+.includes li.no{color:var(--ink-soft)}
+.includes li.no::before{content:"–";background:var(--paper);color:var(--ink-soft)}
+.kapacita{background:var(--sky);border:var(--line);border-radius:var(--radius);padding:18px 22px;
+  margin-bottom:24px;font-size:17px;font-weight:700;box-shadow:var(--shadow-sm)}
+.savings{font-size:15px;color:var(--ink-soft);margin:8px 0 0;font-weight:600}
+
+.toggle{display:inline-flex;gap:4px;background:var(--paper);border:var(--line);border-radius:999px;
+  padding:5px;margin:0 0 28px;box-shadow:var(--shadow-sm)}
+.toggle button{font-family:var(--display);font-size:16px;font-weight:800;border:0;background:transparent;
+  color:var(--ink-soft);padding:9px 20px;border-radius:999px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--grape);color:#fff}
+.toggle .badge{font-family:var(--body);font-size:12.5px;background:var(--lemon);color:var(--ink);
+  border:2px solid var(--ink);padding:1px 9px;border-radius:999px;margin-left:7px;font-weight:800}
+
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 8px}
+.tiles.one{grid-template-columns:1fr}
+.tile{position:relative}
+.tile input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.tile label,.tile .lbl{display:flex;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:14px;
+  padding:13px 15px;font-size:16.5px;font-weight:700;background:var(--paper);cursor:pointer;line-height:1.35;
+  box-shadow:3px 3px 0 var(--ink)}
+.tile input:checked + label,.tile input:checked + .lbl{background:var(--lemon);transform:translate(2px,2px);
+  box-shadow:1px 1px 0 var(--ink)}
+.tile input:focus-visible + label,.tile input:focus-visible + .lbl{outline:3px solid var(--grape);outline-offset:3px}
+.qlabel{display:block;font-family:var(--display);font-weight:800;font-size:18px;margin:28px 0 12px}
+.qlabel:first-child{margin-top:0}
+.reakce{background:var(--paper);border:var(--line);border-radius:var(--radius);padding:16px 20px;
+  font-size:17px;font-weight:600;margin-top:14px;min-height:56px;box-shadow:var(--shadow-sm)}
+.reakce.warn{background:var(--todo-bg);color:var(--todo)}
+
+.savenum{background:var(--paper);border:var(--line);border-radius:26px;padding:28px 24px;text-align:center;
+  margin:28px 0;box-shadow:var(--shadow)}
+.savenum .n{display:block;font-family:var(--display);font-weight:800;font-size:36px;margin:10px 0 14px;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.savenum .l{display:block;font-family:var(--display);font-size:13px;text-transform:uppercase;
+  letter-spacing:.14em;font-weight:800;color:var(--grape-d)}
+.savenum .btn{margin-top:10px}
+
+.mail{background:var(--paper);border:var(--line);border-radius:24px;padding:0;overflow:hidden;
+  margin-top:26px;box-shadow:var(--shadow)}
+.mail .hd{background:var(--lemon);border-bottom:var(--line);padding:18px 24px;font-size:15px;font-weight:600}
+.mail .hd b{font-family:var(--display);font-size:20px;font-weight:800;color:var(--ink)}
+.mail .bd{padding:24px 24px 28px;font-size:16.5px}
+.mail .bd h4{margin:22px 0 8px;font-family:var(--display);font-size:13.5px;letter-spacing:.12em;
+  text-transform:uppercase;font-weight:800;color:var(--grape-d)}
+.mail .bd h4:first-child{margin-top:0}
+.mail .bd ul{margin:0 0 6px;padding-left:22px}
+.mail .bd li{margin-bottom:6px}
+.mail .bd code{background:var(--cream);border:2px solid var(--ink);border-radius:6px;padding:0 6px;font-size:14.5px}
+.fix{color:var(--coral);text-decoration:line-through;text-decoration-thickness:2px}
+.ok{color:#0E9B73;font-weight:800}
+
+.recenze{display:grid;grid-template-columns:1fr;gap:20px;margin-top:32px}
+.rec{background:var(--paper);border:var(--line);border-radius:var(--radius);padding:24px 26px;margin:0;
+  box-shadow:var(--shadow-sm)}
+.rec:nth-of-type(odd){transform:rotate(-.5deg)}
+.rec:nth-of-type(even){transform:rotate(.5deg)}
+.rec blockquote{margin:0}
+.rec p{margin:0 0 16px;font-family:var(--display);font-weight:600;font-size:20px;line-height:1.45}
+.rec .kdo{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-size:15px}
+.rec .kdo b{font-weight:800}
+.rec .kdo span{color:var(--ink-soft)}
+
+.slot.video{aspect-ratio:16/9}
+.slot.shot{aspect-ratio:9/16}
+.slot.shot.wide-shot{aspect-ratio:4/3}
+.video-embed{position:relative;aspect-ratio:16/9;border:var(--line);border-radius:var(--radius);
+  overflow:hidden;background:#000;box-shadow:var(--shadow)}
+.video-embed.na-vysku{aspect-ratio:9/16;max-width:340px;margin-inline:auto}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.shots{display:grid;grid-template-columns:1fr;gap:18px;margin-top:32px}
+.shot-img{border:var(--line);border-radius:var(--radius);overflow:hidden;background:var(--paper);
+  box-shadow:var(--shadow-sm)}
+.shot-img img{width:100%;height:auto;display:block}
+.todo-inline{background:var(--todo-bg);color:var(--todo);border:2px dashed var(--todo);border-radius:6px;
+  padding:0 6px;font-weight:700}
+.num{display:block;font-family:var(--display);font-size:56px;line-height:.9;font-weight:800;
+  color:var(--grape);margin:0 0 10px}
+
+.pravni{font-size:22px;margin-top:40px}
+.verze{font-size:15px;color:var(--ink-soft);margin-top:40px;border-top:var(--line);padding-top:16px;font-weight:600}
+
+@media (min-width:860px){
+  .tiers{grid-template-columns:1fr 1fr 1fr;gap:20px;align-items:start}
+  .tiles{grid-template-columns:repeat(3,1fr)}
+  .tiles.lvl{grid-template-columns:1fr}
+  .recenze{grid-template-columns:1fr 1fr;gap:22px}
+  .shots{grid-template-columns:1fr 1fr;gap:22px}
+  .shots .span2{grid-column:1 / -1}
+  .amount{font-size:54px}
+  .savenum .n{font-size:44px}
+  .num{font-size:64px}
+}
+@media (max-width:600px){
+  .pricecard.reco,.rec{transform:none}
+  .pricecard{padding:24px 20px}
+  .toggle{width:100%;justify-content:center}
+  .toggle button{padding:9px 14px;font-size:15px}
+}
+
+/* tabulky (pravni stranky) - bez tohohle na mobilu pretekaji */
+table{width:100%;table-layout:fixed;border-collapse:collapse;margin:20px 0;font-size:15.5px;
+  background:var(--paper);border:var(--line)}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:2px solid var(--ink);
+  overflow-wrap:anywhere}
+th{background:var(--lemon);font-family:var(--display);font-weight:800}
+tr:last-child th,tr:last-child td{border-bottom:0}
+@media (max-width:600px){ table{font-size:13.5px} th,td{padding:8px 8px} }
+
+</style>
+</head>
+<body>
+<!-- PŘED SPUŠTĚNÍM SMAZAT: celý tento žlutý blok -->
+<div class="checklist">
+  <div class="wrap">
+    <h4>Před spuštěním doplnit</h4>
+    <ul>
+      <li><b>Toto je návrh (verze 1) jako podklad pro právníka</b> — před ostrým prodejem nechat zkontrolovat (odstoupení do 14 dnů, nahrávání hovorů, předávání dat do USA, cookie lišta u pixelu). Claude není právník.</li>
+      <li>Doplnit datum spuštění do věty „Verze 1, platná od …"</li>
+      <li><b>Nakonec smazat tenhle žlutý pruh</b> (blok <code>class="checklist"</code>)</li>
+    </ul>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index-b.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#7C4DFF" stroke-width="2.6"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#7C4DFF" stroke-width="2.6" stroke-linecap="round"/></svg> Zavolám ti</a>
+    
+  </div>
+</header>
+
+
+<section class="hero" style="padding-bottom:10px"><div class="wrap">
+  <h1>Zpracování osobních údajů</h1>
+  <p class="lede">Co o vás víme, proč, kdo to vidí a jak dlouho to držíme — u služby Zavolám ti</p>
+</div></section>
+<section style="padding-top:10px"><div class="wrap pravni">
+
+<h2>1. Správce</h2>
+<p>Správcem osobních údajů je Petr Melena, IČO 87235714, se sídlem Pohled 30, 582 21 Pohled, fyzická osoba podnikající podle živnostenského zákona, neplátce DPH. Kontakt pro všechno, co se týká vašich údajů: <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a>. Pověřence pro ochranu osobních údajů správce nemá (nemá povinnost ho jmenovat).</p>
+
+<h2>2. Jaké údaje a proč</h2>
+<table>
+  <tr><th>údaje</th><th>k čemu</th><th>právní základ</th></tr>
+  <tr><td>jméno, telefonní číslo, e-mail, zvolený jazyk, uvedená úroveň, preferovaný čas a dny, témata, poznámka o vás</td><td>abychom vám mohli zavolat ve správný čas, správným jazykem a přiměřeným tempem, a poslat rozbor</td><td>zkušební hovor: váš souhlas (formulář); placená služba: plnění smlouvy</td></tr>
+  <tr><td><b>nahrávka a přepis hovoru</b></td><td>bez přepisu nevznikne rozbor. Přepis se pořizuje automaticky u každého hovoru (kromě základní varianty, kde se nepořizuje)</td><td>souhlas (zkušební hovor) / plnění smlouvy (placená služba); na nahrávání jste upozorněni před hovorem i v uvítacím e-mailu</td></tr>
+  <tr><td>rozbory hovorů, týdenní a měsíční přehledy</td><td>sledování vašeho vývoje, obsah služby</td><td>plnění smlouvy</td></tr>
+  <tr><td>platební údaje</td><td>platbu zpracovává Stripe; správce vidí jen jméno, e-mail, telefon, částku, tarif a odpovědi z objednávky — <b>číslo karty nikdy</b></td><td>plnění smlouvy, zákonná povinnost (účetnictví)</td></tr>
+  <tr><td>technické záznamy o hovorech (čas, délka, zda byl zvednut)</td><td>provoz, řešení potíží, vyúčtování</td><td>oprávněný zájem správce na fungování služby</td></tr>
+  <tr><td>e-mailová komunikace s vámi</td><td>podpora, změny nastavení</td><td>plnění smlouvy / oprávněný zájem</td></tr>
+</table>
+<p>Marketingové e-maily (nabídky, novinky) posíláme jen s vaším souhlasem nebo stávajícím zákazníkům na základě oprávněného zájmu; z každého se lze jedním klikem odhlásit.</p>
+
+<h2>3. Kdo údaje zpracovává za nás</h2>
+<p>Službu stavíme z několika technologií. Jejich provozovatelé jsou naši zpracovatelé a údaje zpracovávají jen podle našich pokynů:</p>
+<table>
+  <tr><th>kdo</th><th>co dělá</th><th>kde</th></tr>
+  <tr><td>Twilio Inc.</td><td>telefonní spojení (odchozí hovor na vaše číslo)</td><td>USA / EU; předávání podle rámce EU-U.S. Data Privacy Framework a standardních smluvních doložek</td></tr>
+  <tr><td>ElevenLabs Inc.</td><td>hlas konverzačního partnera, rozpoznání řeči, přepis hovoru</td><td>USA; DPF / standardní smluvní doložky</td></tr>
+  <tr><td>Google LLC (Gemini)</td><td>napsání rozboru a přehledů z přepisu</td><td>USA / EU; DPF / standardní smluvní doložky</td></tr>
+  <tr><td>Stripe Payments Europe Ltd.</td><td>platby a předplatné</td><td>Irsko / USA</td></tr>
+  <tr><td>GitHub Inc. (Microsoft)</td><td>uložení vašich nastavení, přepisů a rozborů v soukromém úložišti, běh systému</td><td>USA / EU; DPF</td></tr>
+  <tr><td>Resend Inc.</td><td>odesílání e-mailů (rozbory, přehledy, potvrzení)</td><td>USA / EU</td></tr>
+  <tr><td>Tally B.V.</td><td>formulář na zkušební hovor</td><td>EU (Belgie)</td></tr>
+  <tr><td>ZONER a.s. (Czechia.com)</td><td>doména a e-mailová schránka správce</td><td>ČR</td></tr>
+</table>
+<p>Nikomu dalšímu údaje neprodáváme ani nepředáváme. Výjimkou je zákonná povinnost (např. účetní doklady finančnímu úřadu).</p>
+
+<h2>4. Jak dlouho údaje držíme</h2>
+<ul>
+  <li><b>Přepis hovoru</b>: nejdéle 30 dní od hovoru — po vytvoření rozboru už není potřeba. U základní varianty se nepořizuje.</li>
+  <li><b>Rozbory a přehledy</b>: po dobu trvání služby a 12 měsíců poté, abyste se k nim mohli vrátit a abychom mohli srovnávat vývoj.</li>
+  <li><b>Kontaktní údaje a nastavení</b>: po dobu služby a 30 dní po jejím ukončení; u zkušebního hovoru 90 dní od hovoru, pokud si službu neobjednáte.</li>
+  <li><b>Účetní doklady</b> (potvrzení o platbách): 10 let podle zákona o účetnictví a DPH.</li>
+  <li>Nahrávku hlasu jako takovou neuchováváme; ElevenLabs ji zpracuje pro přepis a smaže podle svých podmínek (nejdéle v řádu dnů).</li>
+</ul>
+
+<h2>5. Vaše práva</h2>
+<p>Můžete kdykoli požádat o <b>přístup</b> k údajům (pošleme vám všechny rozbory a nastavení), <b>opravu</b>, <b>výmaz</b> („smažte všechno" — provedeme do 30 dnů, kromě účetních dokladů), <b>omezení</b> zpracování, <b>přenos</b> údajů ve strojově čitelné podobě a <b>vznést námitku</b> proti zpracování na základě oprávněného zájmu. Souhlas (u zkušebního hovoru a u marketingu) můžete kdykoli odvolat; na zákonnost dřívějšího zpracování to nemá vliv. Stačí e-mail na <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a>. Pokud se domníváte, že s vašimi údaji zacházíme špatně, můžete se obrátit na Úřad pro ochranu osobních údajů (<a href="https://www.uoou.cz" target="_blank" rel="noopener">uoou.cz</a>).</p>
+
+<h2>6. Automatizované zpracování</h2>
+<p>Konverzačního partnera i rozbory tvoří umělá inteligence. Nejde o rozhodování s právními účinky vůči vám — výstupem je text, který si přečtete a naložíte s ním podle svého. Úroveň, kterou jste uvedli, ovlivňuje jen tempo a délku vět partnera; kdykoli ji můžete změnit e-mailem.</p>
+
+<h2>7. Cookies a měření na webu</h2>
+<p>Web sám žádné cookies neukládá. Vložený formulář (Tally) a platební brána (Stripe) používají technické cookies nutné pro svou funkci. Pokud spustíme reklamu, může být na webu měřicí kód Meta (Facebook) — v takovém případě vás na to upozorníme lištou a kód se načte až po vašem souhlasu. <span class="jen-nahled todo-inline">Před zapnutím pixelu doplnit cookie lištu.</span></p>
+
+<h2>8. Bezpečnost</h2>
+<p>Přístupové klíče ke všem službám jsou uloženy v šifrovaném úložišti, úložiště s vašimi údaji je soukromé, komunikace je šifrovaná (HTTPS). Přístup k údajům má pouze správce.</p>
+
+<p class="verze">Verze 1, září 2026.</p>
+</div></section>
+
+
+<footer>
+  <div class="wrap">
+    <p><b>Petr Melena</b> — OSVČ, neplátce DPH</p>
+    <p>IČO: 87235714<br>
+       Sídlo: Pohled 30, 582 21 Pohled<br>
+       E-mail: <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a></p>
+    <p><a href="podminky-b.html">Obchodní podmínky</a> &nbsp;·&nbsp; <a href="osobni-udaje-b.html">Zpracování osobních údajů</a></p>
+    <p class="tiny" style="color:#8f979b;margin-top:18px">Hovory vede umělá inteligence. Přepisují se, aby z nich mohl vzniknout rozbor.</p>
+  </div>
+</footer>
+
+<script src="konfig.js"></script>
+<script>
+(function(){
+  var K = window.KONFIG || {};
+  var ostre = (K.OSTRE_DOMENY || []).indexOf(location.hostname) > -1;
+  document.documentElement.classList.add(ostre ? "ostre" : "nahled");
+
+  // 1) žluté pracovní pruhy jen v náhledu
+  if (ostre) document.querySelectorAll(".checklist").forEach(function(e){ e.remove(); });
+
+  // 2) formuláře Tally do #zkouska-slot (velký) a #mail-slot (jen e-mail, první krok reklamy)
+  vlozFormular(document.getElementById("zkouska-slot"), K.TALLY_FORM_ID, "Zkušební hovor zdarma", 520);
+  vlozFormular(document.getElementById("mail-slot"), K.TALLY_FORM_ID_MAIL, "Zkušební hovor zdarma", 300);
+
+  function vlozFormular(slot, id, titulek, vyska) {
+    if (!slot) return;
+    if (id) {
+      slot.className = "tally-embed";
+      slot.style.minHeight = "0";
+      // zdroj kanalu (data-zdroj na slotu) jde do skryteho pole formulare, aby bylo videt,
+      // odkud clovek prisel - podle toho se pak pocita provize partnerovi
+      var zdroj = slot.dataset.zdroj ? "&zdroj=" + encodeURIComponent(slot.dataset.zdroj) : "";
+      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + id +
+        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="' + vyska + '" ' +
+        'frameborder="0" marginheight="0" marginwidth="0" title="' + titulek + '"></iframe>';
+      var d=document,w="https://tally.so/widgets/embed.js",v=function(){ if (typeof Tally!=="undefined") Tally.loadEmbeds(); else d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc;}); };
+      if (typeof Tally!=="undefined") v(); else if (!d.querySelector('script[src="'+w+'"]')) { var sc=d.createElement("script"); sc.src=w; sc.onload=v; sc.onerror=v; d.body.appendChild(sc); }
+    } else if (ostre) {
+      slot.innerHTML = '<div><b>Formulář se připravuje.</b> Napište mi zatím na <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a> — jméno, číslo a jazyk.</div>';
+      slot.style.borderColor = "rgba(255,255,255,.55)";
+    }
+  }
+
+  // 3) video do #video-slot (nebo skrýt celou sekci)
+  var vid = document.getElementById("video-slot");
+  if (vid) {
+    if (K.VIDEO_YOUTUBE_ID) {
+      vid.className = "video-embed" + (K.VIDEO_NA_VYSKU ? " na-vysku" : "");
+      vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
+        'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+    } else if (ostre) {
+      var sec = vid.closest("section"); if (sec) sec.hidden = true;
+    }
+  }
+
+  // 4) screenshoty (nebo skrýt sekci)
+  var shots = document.querySelectorAll(".shots .slot.shot");
+  if (shots && shots.length) {
+    var soubory = K.SCREENSHOTY || [];
+    if (soubory.length) {
+      shots.forEach(function(sl, i){
+        if (!soubory[i]) { sl.hidden = true; return; }
+        var popis = (sl.querySelector("b") || {}).textContent || "";
+        sl.className = "shot-img" + (sl.classList.contains("span2") ? " span2" : "");
+        sl.innerHTML = '<img src="obrazky/' + soubory[i] + '" alt="' + popis.replace(/"/g,"") + '" loading="lazy">';
+      });
+    } else if (ostre) {
+      var sec2 = shots[0].closest("section"); if (sec2) sec2.hidden = true;
+    }
+  }
+
+  // 5) Stripe odkazy — konfig má přednost před hodnotami zapečenými ve stránce
+  if (K.STRIPE && window.DATA_STRIPE_HOOK) window.DATA_STRIPE_HOOK(K.STRIPE);
+
+  // 6) Meta pixel (jen na ostré doméně a jen když je ID)
+  if (ostre && K.META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', K.META_PIXEL_ID); fbq('track', 'PageView');
+    var udalost = document.body.getAttribute("data-udalost");
+    if (udalost) fbq('track', udalost);
+  }
+})();
+</script>
+</body>
+</html>
