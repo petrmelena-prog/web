@@ -5,4 +5,14 @@ Disallow: /dekuji-kontakt.html
 Disallow: /samouci.html
 Disallow: /reklama.html
 Disallow: /zkouska.html
+Disallow: /index-b.html
+Disallow: /samouci-b.html
+Disallow: /reklama-b.html
+Disallow: /zkouska-b.html
+Disallow: /nabidka-b.html
+Disallow: /zakladni-b.html
+Disallow: /dekuji-b.html
+Disallow: /dekuji-kontakt-b.html
+Disallow: /podminky-b.html
+Disallow: /osobni-udaje-b.html
 Sitemap: https://zavolamti.cz/sitemap.txt
