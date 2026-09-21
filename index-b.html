@@ -2,6 +2,7 @@
 <html lang="cs">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,follow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zavolám ti — cizí jazyk po telefonu. Nemusíte nic začít, telefon zazvoní sám</title>
 <meta name="description" content="Nemusíte nic začít. Třikrát týdně vám zazvoní telefon a pět minut mluvíte cizím jazykem s umělou inteligencí. Do půl hodiny přijde e-mailem rozbor. Jeden hovor na zkoušku zdarma.">
@@ -10,9 +11,6 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zavolamti.cz/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
 <style>
 /* ============================================================
    ZAVOLÁM TI — cartoon varianta (A/B test)
@@ -365,7 +363,6 @@ tr:last-child th,tr:last-child td{border-bottom:0}
     <ul>
       <li>Formulář Tally je v <code>konfig.js</code> už vyplněný (<code>TALLY_FORM_ID: "dWyBoy"</code>) — po nahrání webu jen zkontrolovat, že se v sekci „Zkuste si jeden hovor zdarma" načte</li>
       <li>Pět screenshotů — nahrát do složky <code>obrazky/</code> a názvy zapsat do <code>konfig.js</code> → <code>SCREENSHOTY</code>. Bez nich se sekce na ostrém webu neukáže</li>
-      <li>Recenze v sekci „Co říkají lidi" — <b>před nahráním na ostrý web mít od každého písemný souhlas</b> (stačí jedna věta v mailu). Bez souhlasu položku smazat ze <code>spolecne.py</code> → <code>NASTAVENI["recenze"]</code></li>
       <li>Stránky <code>podminky-b.html</code> a <code>osobni-udaje-b.html</code> jsou v balíku jako verze 1 (návrh) — před prodejem nechat zkontrolovat právníkem</li>
       <li>Tento žlutý pruh se na ostré doméně zavolamti.cz skryje sám — nic mazat nemusíte</li>
       <li><b>Nakonec smazat tenhle žlutý pruh</b> (blok <code>class="checklist"</code>)</li>
@@ -375,7 +372,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="index-b.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#7C4DFF" stroke-width="2.6"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#7C4DFF" stroke-width="2.6" stroke-linecap="round"/></svg> Zavolám ti</a>
+    <a class="logo" href="index-b.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#0f6b4a" stroke-width="2.6"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#0f6b4a" stroke-width="2.6" stroke-linecap="round"/></svg> Zavolám ti</a>
     <nav class="topnav"><a href="index-b.html#jak">Jak to funguje</a><a href="nabidka-b.html">Ceník</a></nav>
   </div>
 </header>
@@ -383,51 +380,26 @@ tr:last-child th,tr:last-child td{border-bottom:0}
 
 <!-- ===================== HERO ===================== -->
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-text">
-      <p class="eyebrow">Pět minut, třikrát týdně</p>
-      <h1>Nemusíte nic začít. Telefon zazvoní sám.</h1>
-      <p class="lede">Třikrát týdně, v čase, který si vyberete. Zvednete a pět minut mluvíte cizím jazykem — s umělou inteligencí, takže se před ní nemusíte stydět. Do půl hodiny vám přijde e-mailem rozbor: co bylo dobře, co špatně a jak se to říká správně.</p>
-      <div class="langs"><span class="lang"><span class="fl">🇺🇸</span>Angličtina</span><span class="lang"><span class="fl">🇩🇪</span>Němčina</span><span class="lang"><span class="fl">🇪🇸</span>Španělština</span><span class="lang"><span class="fl">🇮🇹</span>Italština</span><span class="lang"><span class="fl">🇫🇷</span>Francouzština</span></div>
-      <div class="cta" style="margin-top:26px"><a class="btn block" href="#zkouska">Zkusit jeden hovor zdarma</a></div>
-      <p class="tiny underbtn">Jeden hovor na zkoušku. Zdarma, bez karty, bez závazku.</p>
-    </div>
-    <div class="phonebox"><svg class="ring" viewBox="0 0 252 470" fill="none" xmlns="http://www.w3.org/2000/svg"
-     role="img" aria-label="Telefon, na kterém zvoní příchozí hovor">
-  <g class="waves">
-    <path class="a1" d="M40 86a52 52 0 0 1 12-30"/>
-    <path class="a2" d="M22 92a70 70 0 0 1 16-42"/>
-    <path class="a1" d="M212 86a52 52 0 0 0-12-30"/>
-    <path class="a2" d="M230 92a70 70 0 0 0-16-42"/>
-  </g>
-  <rect x="46" y="10" width="160" height="450" rx="30" fill="#ffffff" stroke="#1B1229" stroke-width="3.6"/>
-  <rect x="56" y="24" width="140" height="422" rx="22" fill="#FFF6EC"/>
-  <rect x="106" y="34" width="40" height="5" rx="2.5" fill="#D9CFE8"/>
-  <circle cx="126" cy="140" r="40" fill="#7C4DFF" fill-opacity=".10" stroke="#7C4DFF" stroke-width="2.6"/>
-  <g transform="translate(112,126) scale(1.18)">
-    <path d="M3.2 2.6h3.1l1.5 3.9-1.9 1.3a11.2 11.2 0 0 0 5.6 5.6l1.3-1.9 3.9 1.5v3.1a1.5 1.5 0 0 1-1.6 1.5C8 17.1 2.3 11.4 1.7 4.2A1.5 1.5 0 0 1 3.2 2.6Z"
-          fill="none" stroke="#7C4DFF" stroke-width="2.6" stroke-linejoin="round"/>
-  </g>
-  <text x="126" y="214" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10.5"
-        font-weight="700" letter-spacing="1.6" fill="#6E5F86">PŘÍCHOZÍ HOVOR</text>
-  <text x="126" y="248" text-anchor="middle" font-family="'Baloo 2',Nunito,sans-serif" font-size="23"
-        font-weight="600" fill="#1B1229">Zavolám ti</text>
-  <text x="126" y="272" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13"
-        fill="#6E5F86">+420 910 927 989</text>
-  <line x1="76" y1="300" x2="176" y2="300" stroke="#E3DAF2" stroke-width="2.4"/>
-  <text x="126" y="326" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12.5"
-        fill="#6E5F86">pět minut, cizím jazykem</text>
-  <circle cx="94" cy="392" r="25" fill="#FF5C7A" stroke="#1B1229" stroke-width="2.6"/>
-  <g transform="translate(83,381) scale(.95) rotate(133 11.5 11.5)">
-    <path d="M3.2 2.6h3.1l1.5 3.9-1.9 1.3a11.2 11.2 0 0 0 5.6 5.6l1.3-1.9 3.9 1.5v3.1a1.5 1.5 0 0 1-1.6 1.5C8 17.1 2.3 11.4 1.7 4.2A1.5 1.5 0 0 1 3.2 2.6Z"
-          fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linejoin="round"/>
-  </g>
-  <circle cx="158" cy="392" r="25" fill="#2FD8A8" stroke="#1B1229" stroke-width="2.6"/>
-  <g transform="translate(147,381) scale(.95)">
-    <path d="M3.2 2.6h3.1l1.5 3.9-1.9 1.3a11.2 11.2 0 0 0 5.6 5.6l1.3-1.9 3.9 1.5v3.1a1.5 1.5 0 0 1-1.6 1.5C8 17.1 2.3 11.4 1.7 4.2A1.5 1.5 0 0 1 3.2 2.6Z"
-          fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linejoin="round"/>
-  </g>
-</svg></div>
+  <div class="wrap">
+    <div class="phonebox"><svg class="ring" viewBox="0 0 120 120" role="img" aria-label="Zvonící telefon">
+        <g class="handset" style="transform-origin:60px 66px">
+          <rect class="body" x="44" y="30" width="32" height="56" rx="6"/>
+          <rect class="screen" x="49" y="36" width="22" height="38" rx="2"/>
+          <line x1="55" y1="80" x2="65" y2="80" stroke="#0f6b4a" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <path class="arc a1" d="M84 46 A 18 18 0 0 1 84 70"/>
+        <path class="arc a2" d="M92 38 A 30 30 0 0 1 92 78"/>
+        <path class="arc a1" d="M36 46 A 18 18 0 0 0 36 70"/>
+        <path class="arc a2" d="M28 38 A 30 30 0 0 0 28 78"/>
+      </svg></div>
+
+    <h1>Nemusíte nic začít. Telefon zazvoní sám.</h1>
+    <p class="lede">Třikrát týdně, v čase, který si vyberete. Zvednete a pět minut mluvíte cizím jazykem — s umělou inteligencí, takže se před ní nemusíte stydět. Do půl hodiny vám přijde e-mailem rozbor: co bylo dobře, co špatně a jak se to říká správně.</p>
+
+    <div class="langs"><span class="lang"><span class="fl">🇺🇸</span>Angličtina</span><span class="lang"><span class="fl">🇩🇪</span>Němčina</span><span class="lang"><span class="fl">🇪🇸</span>Španělština</span><span class="lang"><span class="fl">🇮🇹</span>Italština</span><span class="lang"><span class="fl">🇫🇷</span>Francouzština</span></div>
+
+    <div class="cta" style="margin-top:26px"><a class="btn block" href="#zkouska">Zkusit jeden hovor zdarma</a></div>
+    <p class="tiny underbtn">Jeden hovor na zkoušku. Zdarma, bez karty, bez závazku.</p>
   </div>
 </section>
 
@@ -518,17 +490,6 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   </div>
 </section>
 
-
-<!-- ===================== RECENZE ===================== -->
-<section class="plane">
-  <div class="wrap">
-    <h2>Co říkají lidi, kterým telefon zazvonil</h2>
-    <p class="small">Nikoho jsem o to neprosil. Tohle jsou jejich vlastní slova z e-mailů a komentářů po zkušebním hovoru.</p>
-    <div class="recenze"><figure class="rec"><blockquote><p>„Je to opravdu velký game changer. Po letech jsem zkusila mluvit bez studu.“</p></blockquote><figcaption class="kdo"><b>Kristýna V.</b><span>francouzština, po prvním hovoru</span></figcaption></figure><figure class="rec"><blockquote><p>„Povídání bylo moc fajn, líbila se mi pohotovost dalších dotazů plynule navazujících na mé odpovědi. Rozbor taky super.“</p></blockquote><figcaption class="kdo"><b>Terka L.</b><span>italština, po prvním hovoru</span></figcaption></figure><figure class="rec"><blockquote><p>„Vyzkoušeno a za mě dobrý. Rozbor, co přijde do e-mailu, nemá chybu — vše podrobně vysvětlené.“</p></blockquote><figcaption class="kdo"><b>Zdeňka V.</b><span>z facebookové skupiny</span></figcaption></figure><figure class="rec"><blockquote><p>„Potřebuji opravdu moc trénovat. Toto je výborný způsob, jak se učit mluvit.“</p></blockquote><figcaption class="kdo"><b>Jitka P.</b><span>po prvním hovoru</span></figcaption></figure></div>
-  </div>
-</section>
-
-
 <!-- ===================== ZKOUŠKA ZDARMA ===================== -->
 <section class="zkouska" id="zkouska">
   <div class="wrap">
@@ -599,10 +560,6 @@ tr:last-child th,tr:last-child td{border-bottom:0}
 
 <footer>
   <div class="wrap">
-    <p><b>Petr Melena</b> — OSVČ, neplátce DPH</p>
-    <p>IČO: 87235714<br>
-       Sídlo: Pohled 30, 582 21 Pohled<br>
-       E-mail: <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a></p>
     <p><a href="podminky-b.html">Obchodní podmínky</a> &nbsp;·&nbsp; <a href="osobni-udaje-b.html">Zpracování osobních údajů</a></p>
     <p class="tiny" style="color:#8f979b;margin-top:18px">Hovory vede umělá inteligence. Přepisují se, aby z nich mohl vzniknout rozbor.</p>
   </div>
@@ -618,21 +575,18 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   // 1) žluté pracovní pruhy jen v náhledu
   if (ostre) document.querySelectorAll(".checklist").forEach(function(e){ e.remove(); });
 
-  // 2) formuláře Tally do #zkouska-slot (velký) a #mail-slot (jen e-mail, první krok reklamy)
-  vlozFormular(document.getElementById("zkouska-slot"), K.TALLY_FORM_ID, "Zkušební hovor zdarma", 520);
-  vlozFormular(document.getElementById("mail-slot"), K.TALLY_FORM_ID_MAIL, "Zkušební hovor zdarma", 300);
-
-  function vlozFormular(slot, id, titulek, vyska) {
-    if (!slot) return;
-    if (id) {
+  // 2) formulář Tally do #zkouska-slot
+  var slot = document.getElementById("zkouska-slot");
+  if (slot) {
+    if (K.TALLY_FORM_ID) {
       slot.className = "tally-embed";
       slot.style.minHeight = "0";
       // zdroj kanalu (data-zdroj na slotu) jde do skryteho pole formulare, aby bylo videt,
       // odkud clovek prisel - podle toho se pak pocita provize partnerovi
       var zdroj = slot.dataset.zdroj ? "&zdroj=" + encodeURIComponent(slot.dataset.zdroj) : "";
-      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + id +
-        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="' + vyska + '" ' +
-        'frameborder="0" marginheight="0" marginwidth="0" title="' + titulek + '"></iframe>';
+      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + K.TALLY_FORM_ID +
+        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="520" ' +
+        'frameborder="0" marginheight="0" marginwidth="0" title="Zkušební hovor zdarma"></iframe>';
       var d=document,w="https://tally.so/widgets/embed.js",v=function(){ if (typeof Tally!=="undefined") Tally.loadEmbeds(); else d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc;}); };
       if (typeof Tally!=="undefined") v(); else if (!d.querySelector('script[src="'+w+'"]')) { var sc=d.createElement("script"); sc.src=w; sc.onload=v; sc.onerror=v; d.body.appendChild(sc); }
     } else if (ostre) {
@@ -645,7 +599,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   var vid = document.getElementById("video-slot");
   if (vid) {
     if (K.VIDEO_YOUTUBE_ID) {
-      vid.className = "video-embed" + (K.VIDEO_NA_VYSKU ? " na-vysku" : "");
+      vid.className = "video-embed";
       vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
     } else if (ostre) {

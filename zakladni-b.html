@@ -2,6 +2,7 @@
 <html lang="cs">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,follow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Základní varianta — 297 Kč | Zavolám ti</title>
 <meta name="description" content="Telefon zvoní dvakrát týdně a vy mluvíte cizím jazykem. Bez rozboru a reportů. 297 Kč měsíčně, bez závazku.">
@@ -10,9 +11,6 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zavolamti.cz/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
 <style>
 /* ============================================================
    ZAVOLÁM TI — cartoon varianta (A/B test)
@@ -371,7 +369,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="index-b.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#7C4DFF" stroke-width="2.6"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#7C4DFF" stroke-width="2.6" stroke-linecap="round"/></svg> Zavolám ti</a>
+    <a class="logo" href="index-b.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#0f6b4a" stroke-width="2.6"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#0f6b4a" stroke-width="2.6" stroke-linecap="round"/></svg> Zavolám ti</a>
     <nav class="topnav"><a href="index-b.html#jak">Jak to funguje</a><a href="nabidka-b.html">Ceník</a></nav>
   </div>
 </header>
@@ -416,17 +414,13 @@ tr:last-child th,tr:last-child td{border-bottom:0}
       </ul>
       <a class="btn block koupit" href="#" data-tarif="zakladni">Vybrat základní variantu</a>
     </div>
-    <p class="tiny" style="margin-top:18px">Kdykoli později můžete přejít na plný tarif s rozbory — <a href="nabidka-b.html#cenik">ceník je tady</a>. Ceny jsou konečné, Petr Melena je OSVČ a neplátce DPH. Zaplacením souhlasíte s <a href="podminky-b.html">obchodními podmínkami</a>.</p>
+    <p class="tiny" style="margin-top:18px">Kdykoli později můžete přejít na plný tarif s rozbory — <a href="nabidka-b.html#cenik">ceník je tady</a>. Ceny jsou konečné, provozovatel je neplátce DPH. Zaplacením souhlasíte s <a href="podminky-b.html">obchodními podmínkami</a>.</p>
   </div>
 </section>
 
 
 <footer>
   <div class="wrap">
-    <p><b>Petr Melena</b> — OSVČ, neplátce DPH</p>
-    <p>IČO: 87235714<br>
-       Sídlo: Pohled 30, 582 21 Pohled<br>
-       E-mail: <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a></p>
     <p><a href="podminky-b.html">Obchodní podmínky</a> &nbsp;·&nbsp; <a href="osobni-udaje-b.html">Zpracování osobních údajů</a></p>
     <p class="tiny" style="color:#8f979b;margin-top:18px">Hovory vede umělá inteligence. Přepisují se, aby z nich mohl vzniknout rozbor.</p>
   </div>
@@ -468,21 +462,18 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   // 1) žluté pracovní pruhy jen v náhledu
   if (ostre) document.querySelectorAll(".checklist").forEach(function(e){ e.remove(); });
 
-  // 2) formuláře Tally do #zkouska-slot (velký) a #mail-slot (jen e-mail, první krok reklamy)
-  vlozFormular(document.getElementById("zkouska-slot"), K.TALLY_FORM_ID, "Zkušební hovor zdarma", 520);
-  vlozFormular(document.getElementById("mail-slot"), K.TALLY_FORM_ID_MAIL, "Zkušební hovor zdarma", 300);
-
-  function vlozFormular(slot, id, titulek, vyska) {
-    if (!slot) return;
-    if (id) {
+  // 2) formulář Tally do #zkouska-slot
+  var slot = document.getElementById("zkouska-slot");
+  if (slot) {
+    if (K.TALLY_FORM_ID) {
       slot.className = "tally-embed";
       slot.style.minHeight = "0";
       // zdroj kanalu (data-zdroj na slotu) jde do skryteho pole formulare, aby bylo videt,
       // odkud clovek prisel - podle toho se pak pocita provize partnerovi
       var zdroj = slot.dataset.zdroj ? "&zdroj=" + encodeURIComponent(slot.dataset.zdroj) : "";
-      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + id +
-        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="' + vyska + '" ' +
-        'frameborder="0" marginheight="0" marginwidth="0" title="' + titulek + '"></iframe>';
+      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + K.TALLY_FORM_ID +
+        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="520" ' +
+        'frameborder="0" marginheight="0" marginwidth="0" title="Zkušební hovor zdarma"></iframe>';
       var d=document,w="https://tally.so/widgets/embed.js",v=function(){ if (typeof Tally!=="undefined") Tally.loadEmbeds(); else d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc;}); };
       if (typeof Tally!=="undefined") v(); else if (!d.querySelector('script[src="'+w+'"]')) { var sc=d.createElement("script"); sc.src=w; sc.onload=v; sc.onerror=v; d.body.appendChild(sc); }
     } else if (ostre) {
@@ -495,7 +486,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   var vid = document.getElementById("video-slot");
   if (vid) {
     if (K.VIDEO_YOUTUBE_ID) {
-      vid.className = "video-embed" + (K.VIDEO_NA_VYSKU ? " na-vysku" : "");
+      vid.className = "video-embed";
       vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
     } else if (ostre) {

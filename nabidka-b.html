@@ -2,6 +2,7 @@
 <html lang="cs">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,follow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ceník a nabídka | Zavolám ti</title>
 <meta name="description" content="Telefon zvoní dvakrát, třikrát nebo pětkrát týdně a vy mluvíte cizím jazykem. Rozbor po každém hovoru. Od 497 Kč měsíčně, bez závazku.">
@@ -10,9 +11,6 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zavolamti.cz/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
 <style>
 /* ============================================================
    ZAVOLÁM TI — cartoon varianta (A/B test)
@@ -363,8 +361,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   <div class="wrap">
     <h4>Před spuštěním doplnit</h4>
     <ul>
-      <li>Video — do <code>konfig.js</code> vyplnit <code>VIDEO_YOUTUBE_ID</code> a u videa na výšku i <code>VIDEO_NA_VYSKU: true</code>. Bez ID se sekce na ostrém webu neukáže</li>
-      <li>Recenze — <b>před nahráním mít od každého písemný souhlas</b>; bez něj položku smazat ze <code>spolecne.py</code></li>
+      <li>Video — do <code>konfig.js</code> vyplnit <code>VIDEO_YOUTUBE_ID</code>. Bez něj se sekce na ostrém webu neukáže</li>
       <li>Platební odkazy — do <code>konfig.js</code> vyplnit sedm adres ve <code>STRIPE</code> (návod, krok 8). Nevyplněné tlačítko řekne, že odkaz chybí</li>
       <li>Ukázkový rozbor — nahradit vlastním skutečným rozborem (jen změnit jméno)</li>
       <li>Zkontrolovat ceny a názvy partnerů pro španělštinu, italštinu a francouzštinu</li>
@@ -375,7 +372,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="index-b.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#7C4DFF" stroke-width="2.6"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#7C4DFF" stroke-width="2.6" stroke-linecap="round"/></svg> Zavolám ti</a>
+    <a class="logo" href="index-b.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="#0f6b4a" stroke-width="2.6"/><line x1="10" y1="18.5" x2="14" y2="18.5" stroke="#0f6b4a" stroke-width="2.6" stroke-linecap="round"/></svg> Zavolám ti</a>
     <nav class="topnav"><a href="index-b.html#jak">Jak to funguje</a><a href="nabidka-b.html">Ceník</a></nav>
   </div>
 </header>
@@ -400,13 +397,13 @@ tr:last-child th,tr:last-child td{border-bottom:0}
 <!-- ===================== VIDEO ===================== -->
 <section style="padding-top:0">
   <div class="wide">
-    <h2>Proč jsem to postavil</h2>
-    <p class="small" style="margin-bottom:24px">Čtyři minuty, natočené na telefon. Bez střihu a bez scénáře — to samé, co je napsané níž, jen ode mě nahlas.</p>
+    <h2>Takhle to vypadá, když mi zavolá</h2>
+    <p class="small" style="margin-bottom:24px">Skutečný hovor natočený na telefon. Žádný střih, žádný scénář — i s chybami, protože o ty tady jde.</p>
     <div class="slot video" id="video-slot">
       <div>
         <b>Sem přijde video</b>
-        Přehrávač YouTube se načte sám, jakmile v <code>konfig.js</code> vyplníte <code>VIDEO_YOUTUBE_ID</code>.
-        <span class="dims">Video na výšku: přidat <code>VIDEO_NA_VYSKU: true</code>.</span>
+        Vložený přehrávač YouTube (Sdílet → Vložit), poměr 16:9. Ideálně: telefon zazvoní, zvednete, kus hovoru, pak ukázat rozbor v mailu. Dvě až tři minuty.
+        <span class="dims">Nahradit tento blok značkou &lt;iframe&gt; z YouTube.</span>
       </div>
     </div>
   </div>
@@ -423,7 +420,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
     <p>Třikrát týdně, v časovém okně, které jsem si určil, mi v náhodnou minutu zavolá telefon. Na druhé straně je Mike z Kalifornie — umělá inteligence s hlasem, kterému rozumím, a s trpělivostí, kterou by žádný člověk neměl. Mluví se mnou pět minut o tématech, která jsem si vybral. Někdy to trvá šest sedm minut, někdy to ukončím dřív. Nikdo se nesměje, nikdo nic nehodnotí. Když nevím, řeknu to česky a jedeme dál.</p>
     <p>Do půl hodiny mi přijde e-mailem rozbor: jestli by mi Američan rozuměl, co bylo dobře, co špatně a jak se to říká správně. Každou neděli týdenní shrnutí, prvního v měsíci přehled, jak se posouvám. A hlavně — po pár týdnech zvednu telefon a mluvím, aniž bych přemýšlel o tom, že mluvím.</p>
     <p>Takhle si volám od léta 2026, anglicky. Problém, který mám já, má většina lidí, co jazyk roky studovali a stejně nemluví: slova mají, ale nikdy nepřijde ta chvíle, kdy by je začali používat. Tohle je jediná věc, kterou znám, kde ta chvíle přijde sama. Tak to nabízím dál.</p>
-    <p class="small" style="margin-top:22px">— Petr Melena, Pohled u Havlíčkova Brodu</p>
+    <p class="small" style="margin-top:22px">— Petr, zakladatel Zavolám ti</p>
   </div>
 </section>
 
@@ -484,23 +481,10 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   </div>
 </section>
 
-
-<!-- ===================== RECENZE ===================== -->
-<section>
-  <div class="wrap">
-    <h2>Co říkají lidi, kterým telefon zazvonil</h2>
-    <p class="small">Nikoho jsem o to neprosil. Tohle jsou jejich vlastní slova z e-mailů a komentářů po zkušebním hovoru.</p>
-    <div class="recenze"><figure class="rec"><blockquote><p>„Je to opravdu velký game changer. Po letech jsem zkusila mluvit bez studu.“</p></blockquote><figcaption class="kdo"><b>Kristýna V.</b><span>francouzština, po prvním hovoru</span></figcaption></figure><figure class="rec"><blockquote><p>„Povídání bylo moc fajn, líbila se mi pohotovost dalších dotazů plynule navazujících na mé odpovědi. Rozbor taky super.“</p></blockquote><figcaption class="kdo"><b>Terka L.</b><span>italština, po prvním hovoru</span></figcaption></figure><figure class="rec"><blockquote><p>„Vyzkoušeno a za mě dobrý. Rozbor, co přijde do e-mailu, nemá chybu — vše podrobně vysvětlené.“</p></blockquote><figcaption class="kdo"><b>Zdeňka V.</b><span>z facebookové skupiny</span></figcaption></figure><figure class="rec"><blockquote><p>„Potřebuji opravdu moc trénovat. Toto je výborný způsob, jak se učit mluvit.“</p></blockquote><figcaption class="kdo"><b>Jitka P.</b><span>po prvním hovoru</span></figcaption></figure></div>
-  </div>
-</section>
-
-
 <!-- ===================== CENÍK ===================== -->
 <section id="cenik">
   <div class="wide">
     <h2>Kolik to stojí</h2>
-    <div class="callout" id="kanal-banner" hidden style="margin-bottom:18px">Jdete z partnerské
-      nabídky — slevový kód zadáte až na platební stránce a projeví se v prvním kroku platby.</div>
     <div class="kapacita">Jediný rozdíl mezi tarify je, jak často telefon zazvoní. Hovor, rozbor, kartičky i reporty jsou u všech stejné. Čím častěji zvoní, tím méně stojí jeden hovor — a tím rychleji se z toho stane návyk.</div>
 
     <div class="toggle" role="group" aria-label="Platba">
@@ -559,7 +543,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
       </div>
     </div>
 
-    <p class="tiny" style="margin-top:22px">Platba kartou přes Stripe, předplatné se obnovuje samo a zrušíte ho jedním klikem v odkazu z potvrzovacího e-mailu — k dalšímu období, bez udání důvodu. Mezi tarify můžete kdykoli přejít. Ceny jsou konečné, Petr Melena je OSVČ a neplátce DPH. Zaplacením souhlasíte s <a href="podminky-b.html">obchodními podmínkami</a>.</p>
+    <p class="tiny" style="margin-top:22px">Platba kartou přes Stripe, předplatné se obnovuje samo a zrušíte ho jedním klikem v odkazu z potvrzovacího e-mailu — k dalšímu období, bez udání důvodu. Mezi tarify můžete kdykoli přejít. Ceny jsou konečné, provozovatel je neplátce DPH. Zaplacením souhlasíte s <a href="podminky-b.html">obchodními podmínkami</a>.</p>
 
     <p class="center" style="margin-top:30px"><button type="button" class="btn quiet" id="nechci">Nechci, je to na mě moc</button></p>
   </div>
@@ -618,10 +602,6 @@ tr:last-child th,tr:last-child td{border-bottom:0}
 
 <footer>
   <div class="wrap">
-    <p><b>Petr Melena</b> — OSVČ, neplátce DPH</p>
-    <p>IČO: 87235714<br>
-       Sídlo: Pohled 30, 582 21 Pohled<br>
-       E-mail: <a href="mailto:petr@zavolamti.cz">petr@zavolamti.cz</a></p>
     <p><a href="podminky-b.html">Obchodní podmínky</a> &nbsp;·&nbsp; <a href="osobni-udaje-b.html">Zpracování osobních údajů</a></p>
     <p class="tiny" style="color:#8f979b;margin-top:18px">Hovory vede umělá inteligence. Přepisují se, aby z nich mohl vzniknout rozbor.</p>
   </div>
@@ -644,12 +624,6 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   var p = new URLSearchParams(location.search);
   var pj = kodJazyka(p.get("jazyk"));
   if (D.jazyky[pj]) { stav.jazyk = pj; var r = document.getElementById("j-"+pj); if (r) r.checked = true; }
-  // zdroj kanalu z adresy (samouci-b.html a spol.) - jde do Stripe, aby bylo videt, odkud clovek prisel
-  var kanal = (p.get("zdroj") || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 20);
-  if (kanal) {
-    var bn = document.getElementById("kanal-banner");
-    if (bn) { bn.hidden = false; }
-  }
 
   function reakceJazyk(){
     var j = D.jazyky[stav.jazyk];
@@ -672,12 +646,9 @@ tr:last-child th,tr:last-child td{border-bottom:0}
     document.querySelectorAll("a.koupit").forEach(function(a){
       var t = a.dataset.tarif;
       var klic = (t === "zakladni") ? "zakladni" : t + "_" + stav.obdobi;
-      // kanal muze mit vlastni platebni odkaz (konfig.js -> STRIPE_KANALY); kdyz nema, plati standardni
-      var kn = (window.KONFIG && window.KONFIG.STRIPE_KANALY && (window.KONFIG.STRIPE_KANALY[kanal] || window.KONFIG.STRIPE_KANALY[kanal.replace(/-b$/, "")])) || {};
-      var url = kn[klic] || D.stripe[klic] || "#";
+      var url = D.stripe[klic] || "#";
       // client_reference_id se objeví ve Stripe u platby a stroj z něj čte jazyk, úroveň a tarif: en-u2-3x
-      // (a nakonec zdroj kanalu, podle ktereho se pocita provize partnerovi: en-u2-3x-samouci)
-      var ref = stav.jazyk + "-u" + stav.uroven + "-" + t + (kanal ? "-" + kanal : "");
+      var ref = stav.jazyk + "-u" + stav.uroven + "-" + t;
       a.href = url + (url.indexOf("?") > -1 ? "&" : "?") + "client_reference_id=" + encodeURIComponent(ref);
     });
   }
@@ -712,21 +683,18 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   // 1) žluté pracovní pruhy jen v náhledu
   if (ostre) document.querySelectorAll(".checklist").forEach(function(e){ e.remove(); });
 
-  // 2) formuláře Tally do #zkouska-slot (velký) a #mail-slot (jen e-mail, první krok reklamy)
-  vlozFormular(document.getElementById("zkouska-slot"), K.TALLY_FORM_ID, "Zkušební hovor zdarma", 520);
-  vlozFormular(document.getElementById("mail-slot"), K.TALLY_FORM_ID_MAIL, "Zkušební hovor zdarma", 300);
-
-  function vlozFormular(slot, id, titulek, vyska) {
-    if (!slot) return;
-    if (id) {
+  // 2) formulář Tally do #zkouska-slot
+  var slot = document.getElementById("zkouska-slot");
+  if (slot) {
+    if (K.TALLY_FORM_ID) {
       slot.className = "tally-embed";
       slot.style.minHeight = "0";
       // zdroj kanalu (data-zdroj na slotu) jde do skryteho pole formulare, aby bylo videt,
       // odkud clovek prisel - podle toho se pak pocita provize partnerovi
       var zdroj = slot.dataset.zdroj ? "&zdroj=" + encodeURIComponent(slot.dataset.zdroj) : "";
-      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + id +
-        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="' + vyska + '" ' +
-        'frameborder="0" marginheight="0" marginwidth="0" title="' + titulek + '"></iframe>';
+      slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + K.TALLY_FORM_ID +
+        '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="520" ' +
+        'frameborder="0" marginheight="0" marginwidth="0" title="Zkušební hovor zdarma"></iframe>';
       var d=document,w="https://tally.so/widgets/embed.js",v=function(){ if (typeof Tally!=="undefined") Tally.loadEmbeds(); else d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc;}); };
       if (typeof Tally!=="undefined") v(); else if (!d.querySelector('script[src="'+w+'"]')) { var sc=d.createElement("script"); sc.src=w; sc.onload=v; sc.onerror=v; d.body.appendChild(sc); }
     } else if (ostre) {
@@ -739,7 +707,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   var vid = document.getElementById("video-slot");
   if (vid) {
     if (K.VIDEO_YOUTUBE_ID) {
-      vid.className = "video-embed" + (K.VIDEO_NA_VYSKU ? " na-vysku" : "");
+      vid.className = "video-embed";
       vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
     } else if (ostre) {
