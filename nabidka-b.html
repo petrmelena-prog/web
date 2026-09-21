@@ -673,7 +673,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
       var t = a.dataset.tarif;
       var klic = (t === "zakladni") ? "zakladni" : t + "_" + stav.obdobi;
       // kanal muze mit vlastni platebni odkaz (konfig.js -> STRIPE_KANALY); kdyz nema, plati standardni
-      var kn = (window.KONFIG && window.KONFIG.STRIPE_KANALY && window.KONFIG.STRIPE_KANALY[kanal]) || {};
+      var kn = (window.KONFIG && window.KONFIG.STRIPE_KANALY && (window.KONFIG.STRIPE_KANALY[kanal] || window.KONFIG.STRIPE_KANALY[kanal.replace(/-b$/, "")])) || {};
       var url = kn[klic] || D.stripe[klic] || "#";
       // client_reference_id se objeví ve Stripe u platby a stroj z něj čte jazyk, úroveň a tarif: en-u2-3x
       // (a nakonec zdroj kanalu, podle ktereho se pocita provize partnerovi: en-u2-3x-samouci)
