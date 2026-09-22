@@ -12,6 +12,10 @@ window.KONFIG = {
   // V Tally u něj nastavte Redirect on completion na https://zavolamti.cz/zkouska.html
  // Prázdné = reklama.html ukáže "Formulář se připravuje" a nedá se z ní přihlásit.
   TALLY_FORM_ID_MAIL: "Ekpp1q",
+  // Druhý malý formulář pro cartoon variantu B. Liší se jen přesměrováním
+  // (zkouska-b.html místo zkouska.html). Prázdné = reklama-b.html použije
+  // TALLY_FORM_ID_MAIL a člověk skončí v áčkové zkoušce.
+  TALLY_FORM_ID_MAIL_B: "GxMM7k",
 
   // Video na prodejní stránce — ID z adresy YouTube: youtube.com/watch?v=XXXXXXXXXXX
   VIDEO_YOUTUBE_ID: "R8Ftn5Bir6w",
