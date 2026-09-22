@@ -384,7 +384,14 @@ th{font-size:13.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--in
       slot.style.minHeight = "0";
       // zdroj kanalu (data-zdroj na slotu) jde do skryteho pole formulare, aby bylo videt,
       // odkud clovek prisel - podle toho se pak pocita provize partnerovi
-      var zdroj = slot.dataset.zdroj ? "&zdroj=" + encodeURIComponent(slot.dataset.zdroj) : "";
+      // znacka na strance ma prednost; kdyz tam neni, vezme se z adresy (?zdroj=),
+      // aby ji druhy krok reklamniho funnelu neztratil. Bila listina proti podvrzeni.
+      var z = slot.dataset.zdroj || "";
+      if (!z) {
+        var zu = new URLSearchParams(location.search).get("zdroj") || "";
+        if (/^[a-z0-9-]{1,20}$/.test(zu)) z = zu;
+      }
+      var zdroj = z ? "&zdroj=" + encodeURIComponent(z) : "";
       slot.innerHTML = '<iframe data-tally-src="https://tally.so/embed/' + K.TALLY_FORM_ID +
         '?alignLeft=1&hideTitle=1&dynamicHeight=1' + zdroj + '" loading="lazy" width="100%" height="520" ' +
         'frameborder="0" marginheight="0" marginwidth="0" title="Zkušební hovor zdarma"></iframe>';
