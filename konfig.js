@@ -11,7 +11,7 @@ window.KONFIG = {
   // Krátký formulář jen na e-mail — první krok dvoukrokového funnelu na reklama.html.
   // V Tally u něj nastavte Redirect on completion na https://zavolamti.cz/zkouska.html
  // Prázdné = reklama.html ukáže "Formulář se připravuje" a nedá se z ní přihlásit.
-  TALLY_FORM_ID_MAIL: "GxMMyZ",
+  TALLY_FORM_ID_MAIL: "Ekpp1q",
   // Druhý malý formulář pro cartoon variantu B. Liší se jen přesměrováním
   // (zkouska-b.html místo zkouska.html). Prázdné = reklama-b.html použije
   // TALLY_FORM_ID_MAIL a člověk skončí v áčkové zkoušce.
