@@ -212,6 +212,11 @@ header.top{border-bottom:1px solid var(--line-soft);background:var(--paper)}
 @media (max-width:520px){.tally-embed{padding:14px 10px}}
 .video-embed{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
 .video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-embed.na-vysku{aspect-ratio:9/16;max-width:340px;margin-inline:auto}
+/* zarovnani na stred (24. 9. 2026, cenik: uvod a nadpis videa) */
+.stred{text-align:center}
+.stred .stepline{justify-content:center}
+.stred .lede{margin-left:auto;margin-right:auto}
 .shot-img{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--plane)}
 .shot-img img{width:100%;height:auto;display:block}
 html.nahled .jen-ostre{display:none}
@@ -405,10 +410,18 @@ th{font-size:13.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--in
   }
 
   // 3) video do #video-slot (nebo skrýt celou sekci)
+  //    Wistia má přednost před YouTube (24. 9. 2026, Petr nechce video na YouTube).
+  //    ID z konfig.js (VIDEO_WISTIA_ID), jinak ze stránky (data-wistia). Na výšku = 9:16.
   var vid = document.getElementById("video-slot");
   if (vid) {
-    if (K.VIDEO_YOUTUBE_ID) {
-      vid.className = "video-embed";
+    var wid = K.VIDEO_WISTIA_ID || vid.getAttribute("data-wistia") || "";
+    var vysk = !!K.VIDEO_NA_VYSKU || vid.getAttribute("data-na-vysku") === "1";
+    if (/^[a-z0-9]{10}$/.test(wid)) {
+      vid.className = "video-embed" + (vysk ? " na-vysku" : "");
+      vid.innerHTML = '<iframe src="https://fast.wistia.net/embed/iframe/' + wid + '?videoFoam=false&playerColor=1e5943" title="Video" ' +
+        'allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>';
+    } else if (K.VIDEO_YOUTUBE_ID) {
+      vid.className = "video-embed" + (vysk ? " na-vysku" : "");
       vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
     } else if (ostre) {

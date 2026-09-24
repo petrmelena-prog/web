@@ -313,6 +313,10 @@ html.ostre .jen-nahled{display:none}
 .video-embed{position:relative;aspect-ratio:16/9;border:var(--line);border-radius:var(--radius);
   overflow:hidden;background:#000;box-shadow:var(--shadow)}
 .video-embed.na-vysku{aspect-ratio:9/16;max-width:340px;margin-inline:auto}
+/* zarovnani na stred (24. 9. 2026) */
+.stred{text-align:center}
+.stred .stepline{justify-content:center}
+.stred .lede,.hero.stred .lede{margin-left:auto;margin-right:auto}
 .video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .shots{display:grid;grid-template-columns:1fr;gap:18px;margin-top:32px}
 .shot-img{border:var(--line);border-radius:var(--radius);overflow:hidden;background:var(--paper);
@@ -469,10 +473,18 @@ html .cl-btn:hover{background:var(--grape);border:var(--line);transform:translat
   }
 
   // 3) video do #video-slot (nebo skrýt celou sekci)
+  //    Wistia má přednost před YouTube (24. 9. 2026, Petr nechce video na YouTube).
+  //    ID z konfig.js (VIDEO_WISTIA_ID), jinak ze stránky (data-wistia). Na výšku = 9:16.
   var vid = document.getElementById("video-slot");
   if (vid) {
-    if (K.VIDEO_YOUTUBE_ID) {
-      vid.className = "video-embed";
+    var wid = K.VIDEO_WISTIA_ID || vid.getAttribute("data-wistia") || "";
+    var vysk = !!K.VIDEO_NA_VYSKU || vid.getAttribute("data-na-vysku") === "1";
+    if (/^[a-z0-9]{10}$/.test(wid)) {
+      vid.className = "video-embed" + (vysk ? " na-vysku" : "");
+      vid.innerHTML = '<iframe src="https://fast.wistia.net/embed/iframe/' + wid + '?videoFoam=false&playerColor=1e5943" title="Video" ' +
+        'allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>';
+    } else if (K.VIDEO_YOUTUBE_ID) {
+      vid.className = "video-embed" + (vysk ? " na-vysku" : "");
       vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
     } else if (ostre) {

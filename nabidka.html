@@ -211,6 +211,11 @@ header.top{border-bottom:1px solid var(--line-soft);background:var(--paper)}
 @media (max-width:520px){.tally-embed{padding:14px 10px}}
 .video-embed{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
 .video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-embed.na-vysku{aspect-ratio:9/16;max-width:340px;margin-inline:auto}
+/* zarovnani na stred (24. 9. 2026, cenik: uvod a nadpis videa) */
+.stred{text-align:center}
+.stred .stepline{justify-content:center}
+.stred .lede{margin-left:auto;margin-right:auto}
 .shot-img{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--plane)}
 .shot-img img{width:100%;height:auto;display:block}
 html.nahled .jen-ostre{display:none}
@@ -261,7 +266,7 @@ footer p{margin:0 0 10px}
   <div class="wrap">
     <h4>Před spuštěním doplnit</h4>
     <ul>
-      <li>Video — do <code>konfig.js</code> vyplnit <code>VIDEO_YOUTUBE_ID</code>. Bez něj se sekce na ostrém webu neukáže</li>
+      <li>Video — Wistia <code>54evrekry1</code> je zapečené ve stránce; jiné video přes <code>VIDEO_WISTIA_ID</code> v <code>konfig.js</code>. Ve Wistii zapnout Privacy Mode (bez cookies)</li>
       <li>Platební odkazy — do <code>konfig.js</code> vyplnit sedm adres ve <code>STRIPE</code> (návod, krok 8). Nevyplněné tlačítko řekne, že odkaz chybí</li>
       <li>Ukázkový rozbor — nahradit vlastním skutečným rozborem (jen změnit jméno)</li>
       <li>Zkontrolovat ceny a názvy partnerů pro španělštinu, italštinu a francouzštinu</li>
@@ -279,7 +284,7 @@ footer p{margin:0 0 10px}
 
 
 <!-- ===================== HERO ===================== -->
-<section class="hero" style="padding-bottom:28px">
+<section class="hero stred" style="padding-bottom:28px">
   <div class="wrap">
     <div class="stepline">
       <span class="pill done">Kontakt</span>
@@ -295,15 +300,15 @@ footer p{margin:0 0 10px}
 </section>
 
 <!-- ===================== VIDEO ===================== -->
-<section style="padding-top:0">
+<section class="stred" style="padding-top:0">
   <div class="wide">
     <h2>Takhle to vypadá, když mi zavolá</h2>
     <p class="small" style="margin-bottom:24px">Skutečný hovor natočený na telefon. Žádný střih, žádný scénář — i s chybami, protože o ty tady jde.</p>
-    <div class="slot video" id="video-slot">
+    <div class="slot video" id="video-slot" data-wistia="54evrekry1" data-na-vysku="1">
       <div>
         <b>Sem přijde video</b>
-        Vložený přehrávač YouTube (Sdílet → Vložit), poměr 16:9. Ideálně: telefon zazvoní, zvednete, kus hovoru, pak ukázat rozbor v mailu. Dvě až tři minuty.
-        <span class="dims">Nahradit tento blok značkou &lt;iframe&gt; z YouTube.</span>
+        Video z Wistie (ID 54evrekry1), na výšku 9:16. Načte se samo na ostrém webu. Ideálně: telefon zazvoní, zvednete, kus hovoru, pak ukázat rozbor v mailu. Dvě až tři minuty.
+        <span class="dims">Jiné video: VIDEO_WISTIA_ID v konfig.js.</span>
       </div>
     </div>
   </div>
@@ -611,10 +616,18 @@ footer p{margin:0 0 10px}
   }
 
   // 3) video do #video-slot (nebo skrýt celou sekci)
+  //    Wistia má přednost před YouTube (24. 9. 2026, Petr nechce video na YouTube).
+  //    ID z konfig.js (VIDEO_WISTIA_ID), jinak ze stránky (data-wistia). Na výšku = 9:16.
   var vid = document.getElementById("video-slot");
   if (vid) {
-    if (K.VIDEO_YOUTUBE_ID) {
-      vid.className = "video-embed";
+    var wid = K.VIDEO_WISTIA_ID || vid.getAttribute("data-wistia") || "";
+    var vysk = !!K.VIDEO_NA_VYSKU || vid.getAttribute("data-na-vysku") === "1";
+    if (/^[a-z0-9]{10}$/.test(wid)) {
+      vid.className = "video-embed" + (vysk ? " na-vysku" : "");
+      vid.innerHTML = '<iframe src="https://fast.wistia.net/embed/iframe/' + wid + '?videoFoam=false&playerColor=1e5943" title="Video" ' +
+        'allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>';
+    } else if (K.VIDEO_YOUTUBE_ID) {
+      vid.className = "video-embed" + (vysk ? " na-vysku" : "");
       vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + K.VIDEO_YOUTUBE_ID + '?rel=0" title="Video" ' +
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
     } else if (ostre) {
