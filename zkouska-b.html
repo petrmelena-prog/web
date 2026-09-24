@@ -356,6 +356,12 @@ th{background:var(--lemon);font-family:var(--display);font-weight:800}
 tr:last-child th,tr:last-child td{border-bottom:0}
 @media (max-width:600px){ table{font-size:13.5px} th,td{padding:8px 8px} }
 
+/* cookie lista - vklada ji JS, jen kdyz je vyplneny pixel. Zakladni styl je v JS,
+   tady ho cartoon vzhled prebiji vyssi specificitou (html .trida). */
+html .cookie-lista{background:var(--paper);color:var(--ink);border:var(--line);border-radius:var(--radius);box-shadow:var(--shadow);font-family:var(--body)}
+html .cl-btn{font-family:var(--display);font-weight:800;font-size:16px;background:var(--grape-d);border:var(--line);color:#fff;border-radius:999px;box-shadow:var(--shadow-sm)}
+html .cl-btn:hover{background:var(--grape);border:var(--line);transform:translate(-1px,-1px)}
+
 </style>
 </head>
 <body data-udalost="Lead">
@@ -431,7 +437,7 @@ tr:last-child th,tr:last-child td{border-bottom:0}
 
 <footer>
   <div class="wrap">
-    <p><a href="podminky-b.html">Obchodní podmínky</a> &nbsp;·&nbsp; <a href="osobni-udaje-b.html">Zpracování osobních údajů</a></p>
+    <p><a href="podminky-b.html">Obchodní podmínky</a> &nbsp;·&nbsp; <a href="osobni-udaje-b.html">Zpracování osobních údajů</a><span data-cookies-wrap hidden> &nbsp;·&nbsp; <a href="osobni-udaje-b.html#cookies" data-cookies>Nastavení cookies</a></span></p>
     <p class="tiny" style="color:#8f979b;margin-top:18px">Hovory vede umělá inteligence. Přepisují se, aby z nich mohl vzniknout rozbor.</p>
   </div>
 </footer>
@@ -507,14 +513,85 @@ tr:last-child th,tr:last-child td{border-bottom:0}
   // 5) Stripe odkazy — konfig má přednost před hodnotami zapečenými ve stránce
   if (K.STRIPE && window.DATA_STRIPE_HOOK) window.DATA_STRIPE_HOOK(K.STRIPE);
 
-  // 6) Meta pixel (jen na ostré doméně a jen když je ID)
-  if (ostre && K.META_PIXEL_ID) {
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', K.META_PIXEL_ID); fbq('track', 'PageView');
-    var udalost = document.body.getAttribute("data-udalost");
-    if (udalost) fbq('track', udalost);
+  // 6) Meta pixel - jen na ostre domene, jen s ID a JEN PO SOUHLASU v liste (24. 9. 2026).
+  //    Dokud clovek neklikne "Souhlasim", nenacte se z Mety nic, ani skript.
+  //    Volba se drzi v localStorage (zavolamti_cookies = ano / ne) a zmenit ji jde
+  //    odkazem "Nastaveni cookies" v paticce. Bez pixelu se lista ani odkaz neukazou.
+  //    Udalosti: ViewContent (reklama, samouci), Lead (zkouska = nechal e-mail),
+  //    CompleteRegistration (dekuji-kontakt = objednal hovor), Purchase s castkou (dekuji).
+  var CK = "zavolamti_cookies";
+  var mamePixel = !!(ostre && K.META_PIXEL_ID);
+  document.querySelectorAll("[data-cookies-wrap]").forEach(function(e){ e.hidden = !mamePixel; });
+  if (mamePixel) {
+    var spustPixel = function(){
+      if (window.fbq) return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', K.META_PIXEL_ID); fbq('track', 'PageView');
+      var udalost = document.body.getAttribute("data-udalost");
+      if (!udalost) return;
+      if (udalost !== "Purchase") { fbq('track', udalost); return; }
+      // nakup: castka podle ?tarif= z presmerovani ze Stripu; znovunacteni stranky
+      // v tomtez okne nakup podruhe neposle
+      var q = new URLSearchParams(location.search), tarif = q.get("tarif") || "";
+      var sid = q.get("session_id") || "";
+      if (!/^[A-Za-z0-9_]{1,200}$/.test(sid)) sid = "";
+      var zn = "zavolamti_nakup_" + (sid || tarif);
+      try { if (sessionStorage.getItem(zn)) return; sessionStorage.setItem(zn, "1"); } catch (e) {}
+      var cena = (window.DATA_NAKUP || {})[tarif];
+      var data = cena ? {value: cena, currency: 'CZK', content_name: tarif} : {};
+      if (sid) fbq('track', 'Purchase', data, {eventID: sid}); else fbq('track', 'Purchase', data);
+    };
+    var smazCookies = function(){
+      var d = location.hostname.replace(/^www\./, "");
+      ["_fbp", "_fbc"].forEach(function(n){
+        document.cookie = n + "=; Max-Age=0; path=/";
+        document.cookie = n + "=; Max-Age=0; path=/; domain=." + d;
+      });
+    };
+    var lista = function(){
+      if (document.getElementById("cookie-lista")) return;
+      if (!document.getElementById("cookie-lista-css")) {
+        var st = document.createElement("style"); st.id = "cookie-lista-css";
+        st.textContent = '.cookie-lista{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:760px;margin:0 auto;box-sizing:border-box;' +
+          'background:#fff;color:#14171a;border:1px solid rgba(20,23,26,.14);border-radius:14px;box-shadow:0 10px 30px rgba(20,23,26,.18);' +
+          'padding:16px 18px;display:flex;gap:16px;align-items:center;font-size:15px;line-height:1.5}' +
+          '.cookie-lista p{margin:0;flex:1}.cookie-lista a{color:inherit;text-decoration:underline}' +
+          '.cl-tlacitka{display:flex;gap:10px;flex-shrink:0}' +
+          '.cl-btn{font:inherit;font-weight:700;font-size:15px;line-height:1.2;padding:11px 18px;min-width:118px;border-radius:10px;' +
+          'border:2px solid var(--accent,#0f6b4a);background:var(--accent,#0f6b4a);color:#fff;cursor:pointer}' +
+          '.cl-btn:hover{background:var(--accent-dark,#0a5238);border-color:var(--accent-dark,#0a5238)}' +
+          '.cl-btn:focus-visible{outline:3px solid #14171a;outline-offset:2px}' +
+          '@media (max-width:640px){.cookie-lista{flex-direction:column;align-items:stretch;left:10px;right:10px;bottom:10px;padding:14px}' +
+          '.cl-tlacitka{flex-direction:column}.cl-btn{width:100%}}';
+        document.head.appendChild(st);
+      }
+      var el = document.createElement("div");
+      el.id = "cookie-lista"; el.className = "cookie-lista";
+      el.setAttribute("role", "region"); el.setAttribute("aria-label", "Souhlas s měřením");
+      el.innerHTML = '<p>Rád bych měřil, kolik lidí přišlo z reklamy na Facebooku a Instagramu a kolik z nich si pak objednalo. ' +
+        'Slouží k tomu měřicí kód společnosti Meta, který ukládá cookies. Načte se, jen když s tím souhlasíte. ' +
+        '<a href="osobni-udaje-b.html#cookies">Podrobnosti</a></p>' +
+        '<div class="cl-tlacitka"><button type="button" class="cl-btn" data-v="ano">Souhlasím</button>' +
+        '<button type="button" class="cl-btn" data-v="ne">Odmítnout</button></div>';
+      el.addEventListener("click", function(ev){
+        var v = ev.target && ev.target.getAttribute ? ev.target.getAttribute("data-v") : null;
+        if (v !== "ano" && v !== "ne") return;
+        try { localStorage.setItem(CK, v); } catch (e) {}
+        el.parentNode.removeChild(el);
+        if (v === "ano") { spustPixel(); return; }
+        smazCookies();
+        if (window.fbq) location.reload();   // uz nacteny kod po odvolani souhlasu zastavit
+      });
+      document.body.appendChild(el);
+    };
+    var volba = null;
+    try { volba = localStorage.getItem(CK); } catch (e) {}
+    if (volba === "ano") spustPixel(); else if (volba !== "ne") lista();
+    document.querySelectorAll("[data-cookies]").forEach(function(a){
+      a.addEventListener("click", function(ev){ ev.preventDefault(); lista(); });
+    });
   }
 })();
 </script>
