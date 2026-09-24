@@ -657,12 +657,12 @@ html .cl-btn:hover{background:var(--grape);border:var(--line);transform:translat
       }
       var el = document.createElement("div");
       el.id = "cookie-lista"; el.className = "cookie-lista";
-      el.setAttribute("role", "region"); el.setAttribute("aria-label", "Souhlas s měřením");
-      el.innerHTML = '<p>Rád bych měřil, kolik lidí přišlo z reklamy na Facebooku a Instagramu a kolik z nich si pak objednalo. ' +
-        'Slouží k tomu měřicí kód společnosti Meta, který ukládá cookies. Načte se, jen když s tím souhlasíte. ' +
-        '<a href="osobni-udaje-b.html#cookies">Podrobnosti</a></p>' +
-        '<div class="cl-tlacitka"><button type="button" class="cl-btn" data-v="ano">Souhlasím</button>' +
-        '<button type="button" class="cl-btn" data-v="ne">Odmítnout</button></div>';
+      el.setAttribute("role", "region"); el.setAttribute("aria-label", "Nastavení cookies");
+      el.innerHTML = '<p>Tento web používá cookies. Nezbytné cookies zajišťují jeho fungování. ' +
+        'S vaším souhlasem použijeme i marketingové cookies pro měření reklamy. Svou volbu můžete kdykoli změnit v patičce webu. ' +
+        '<a href="osobni-udaje-b.html#cookies">Více informací</a></p>' +
+        '<div class="cl-tlacitka"><button type="button" class="cl-btn" data-v="ano">Přijmout vše</button>' +
+        '<button type="button" class="cl-btn" data-v="ne">Odmítnout vše</button></div>';
       el.addEventListener("click", function(ev){
         var v = ev.target && ev.target.getAttribute ? ev.target.getAttribute("data-v") : null;
         if (v !== "ano" && v !== "ne") return;
