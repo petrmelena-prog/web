@@ -51,7 +51,7 @@ window.KONFIG = {
   },
 
   // Meta (Facebook) pixel — až při reklamě. Číslo z Events Manager. Prázdné = nic se nenačte.
-  META_PIXEL_ID: "",
+  META_PIXEL_ID: "1126445270078000",
 
   // Domény, na kterých se web považuje za ostrý (skryjí se žluté pracovní pruhy a nevyplněné bloky).
   OSTRE_DOMENY: ["zavolamti.cz", "www.zavolamti.cz"]
